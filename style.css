@@ -604,12 +604,17 @@ ul {
     .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 2rem; }
     
     /* Hero Adjustments */
-    .hero { padding-top: 100px; height: 100vh; min-height: 600px; }
-    .hero-title { font-size: clamp(3.5rem, 12vw, 5rem); text-align: center; }
-    .hero-subtitle { font-size: 1rem; text-align: center; margin: 0 auto; }
-    .hero-content { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; z-index: 10; }
-    .hero-actions { justify-content: center; }
-    .hero-visual { position: absolute; inset: 0; opacity: 0.8; z-index: -1; }
+    .hero { padding-top: 100px; min-height: 100vh; height: auto; display: flex; align-items: center; }
+    .hero-title { font-size: clamp(3rem, 12vw, 4.5rem); text-align: center; margin: 1rem 0; }
+    .hero-subtitle { font-size: 1rem; text-align: center; margin: 0 auto; max-width: 90%; }
+    .hero-content { display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; }
+    .hero-actions { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    
+    /* Move visuals below text instead of absolute background */
+    .hero-visual { position: relative; inset: auto; opacity: 1; z-index: 1; margin-top: 3rem; width: 100%; }
+    .jar-wrapper { width: 100%; left: 0; }
+    .hero-jar-layer { width: 30%; margin: 0 -4%; }
+    
     .hero-jar-main { width: 60vw; max-width: 250px; transform: scale(1.1); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3)); }
     
     /* Global Typography Clamping */
