@@ -378,8 +378,6 @@ ul {
 .ingredients-marquee span { margin: 0 1rem; }
 @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-/* Lifestyle */
-.ls-visual img { max-width: 300px; }
 
 /* Testimonials */
 .icon-huge { font-size: 4rem; }
@@ -636,7 +634,6 @@ ul {
     .panel-text { max-width: 100%; }
     .panel-jar { width: 45vw; max-width: 180px; margin-top: 1rem; }
     
-    .ls-visual { order: -1; padding: 2rem 1rem; }
 }
 
 /* 480px BREAKPOINT (Phones) */
