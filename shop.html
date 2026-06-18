@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutSpice | Shop The Collection</title>
+    <link rel="icon" type="image/png" href="./assets/logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="shop.css">
+    
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
+</head>
+<body class="bg-primary text-choc-brown font-body">
+    
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Noise Texture Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="magnetic"><img src="./assets/logo.png" alt="NutSpice Logo" class="nav-logo"></a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link magnetic">Home</a>
+                <a href="shop.html" class="nav-link magnetic text-brand-orange">Shop</a>
+                <a href="#comparison" class="nav-link magnetic">Compare</a>
+                <a href="#faq" class="nav-link magnetic">FAQ</a>
+            </div>
+            <div class="nav-actions" style="display: flex; align-items: center; gap: 1.5rem;">
+                <button class="nav-link magnetic border-none bg-transparent cursor-pointer relative" id="cart-btn" style="color: var(--dark-brown);">
+                    <i class="ph ph-shopping-bag" style="font-size: 1.5rem;"></i>
+                    <span id="cart-count" class="absolute bg-brand-orange text-white border-radius-50 flex-center" style="width: 20px; height: 20px; font-size: 0.7rem; top: -5px; right: -10px;">0</span>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Overlay Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="shop.html" class="mobile-nav-link text-brand-orange">Shop Collection</a>
+            <a href="#comparison" class="mobile-nav-link">Compare</a>
+            <a href="#faq" class="mobile-nav-link">FAQ</a>
+        </div>
+    </div>
+
+    <!-- Cart Overlay & Sidebar -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2 class="font-display text-dark-brown">Your Cart</h2>
+            <i class="ph ph-x close-cart magnetic" id="close-cart-btn"></i>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Items will be injected here via JS -->
+            <div class="text-center mt-4">
+                <i class="ph ph-shopping-cart text-choc-brown" style="font-size: 3rem; opacity: 0.2;"></i>
+                <p class="mt-1 text-choc-brown">Your cart is empty.</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cart-total-price">₹0</span>
+            </div>
+            <button class="btn btn-primary w-100 magnetic" id="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- SECTION 1: SHOP HERO -->
+        <section class="shop-hero flex-center">
+            <div class="shop-mesh"></div>
+            <div class="container relative z-2 text-center">
+                <span class="badge border-brown inline-block mb-1 gs-fade-up">PREMIUM SNACKING</span>
+                <h1 class="font-display text-dark-brown section-title gs-fade-up" style="font-size: 4.5rem; line-height: 1.1;">Explore The Collection</h1>
+                <p class="section-desc max-w-600 mx-auto mt-1 gs-fade-up">Discover premium flavoured makhana crafted for modern lifestyles. Roasted to perfection, seasoned with luxury.</p>
+            </div>
+            
+            <div class="particles" id="shop-particles"></div>
+        </section>
+
+        <!-- SECTION 2: FEATURED PRODUCTS -->
+        <section class="section" id="products">
+            <div class="container">
+                <div class="products-grid" id="product-grid">
+                    <!-- Products will be injected via JS to avoid repetition -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: PRODUCT COMPARISON -->
+        <section class="section comparison-section" id="comparison">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h2 class="font-display section-title text-primary gs-fade-up">Find Your Flavour</h2>
+                    <p class="section-desc mt-1 gs-fade-up">Compare our premium range to find your perfect match.</p>
+                </div>
+                
+                <div class="compare-grid">
+                    <div class="compare-card glass-panel p-4 gs-fade-up" style="background: rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.1);">
+                        <h3 class="font-display text-primary text-xl mb-2">Peri Peri Makhana</h3>
+                        <div class="compare-item">
+                            <div class="flex justify-between text-sm"><span>Spice Level</span><span>High</span></div>
+                            <div class="bar-bg"><div class="bar-fill gs-bar" style="width: 0;" data-width="90%"></div></div>
+                        </div>
+                        <div class="compare-item">
+                            <div class="flex justify-between text-sm"><span>Crunch</span><span>Extreme</span></div>
+                            <div class="bar-bg"><div class="bar-fill gs-bar" style="width: 0;" data-width="100%"></div></div>
+                        </div>
+                        <div class="compare-item">
+                            <div class="flex justify-between text-sm"><span>Popularity</span><span>Bestseller</span></div>
+                            <div class="bar-bg"><div class="bar-fill gs-bar" style="width: 0;" data-width="95%"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="compare-card glass-panel p-4 gs-fade-up" style="transition-delay: 0.2s; background: rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.1);">
+                        <h3 class="font-display text-primary text-xl mb-2">Pudina Burst</h3>
+                        <div class="compare-item">
+                            <div class="flex justify-between text-sm"><span>Spice Level</span><span>Mild</span></div>
+                            <div class="bar-bg"><div class="bar-fill gs-bar" style="width: 0;" data-width="30%"></div></div>
+                        </div>
+                        <div class="compare-item">
+                            <div class="flex justify-between text-sm"><span>Crunch</span><span>Extreme</span></div>
+                            <div class="bar-bg"><div class="bar-fill gs-bar" style="width: 0;" data-width="100%"></div></div>
+                        </div>
+                        <div class="compare-item">
+                            <div class="flex justify-between text-sm"><span>Popularity</span><span>Classic</span></div>
+                            <div class="bar-bg"><div class="bar-fill gs-bar" style="width: 0;" data-width="80%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: WHY NUTSPICE -->
+        <section class="section" style="background: #fff;">
+            <div class="container text-center">
+                <h2 class="font-display section-title text-dark-brown mb-4 gs-fade-up">The NutSpice Standard</h2>
+                <div class="grid-4 mt-2">
+                    <div class="gs-fade-up" style="transition-delay: 0.1s;">
+                        <i class="ph ph-fire text-brand-orange mb-1" style="font-size: 3rem;"></i>
+                        <h4 class="font-display text-lg mb-05">Roasted, Not Fried</h4>
+                        <p class="text-sm">Air-roasted to perfect crispiness without excess oil.</p>
+                    </div>
+                    <div class="gs-fade-up" style="transition-delay: 0.2s;">
+                        <i class="ph ph-barbell text-brand-orange mb-1" style="font-size: 3rem;"></i>
+                        <h4 class="font-display text-lg mb-05">High Protein</h4>
+                        <p class="text-sm">Packed with natural plant protein for sustained energy.</p>
+                    </div>
+                    <div class="gs-fade-up" style="transition-delay: 0.3s;">
+                        <i class="ph ph-leaf text-brand-orange mb-1" style="font-size: 3rem;"></i>
+                        <h4 class="font-display text-lg mb-05">Gluten Free</h4>
+                        <p class="text-sm">100% gluten-free and easily digestible.</p>
+                    </div>
+                    <div class="gs-fade-up" style="transition-delay: 0.4s;">
+                        <i class="ph ph-star text-brand-orange mb-1" style="font-size: 3rem;"></i>
+                        <h4 class="font-display text-lg mb-05">Premium Ingredients</h4>
+                        <p class="text-sm">Sourced from the finest farms for luxury quality.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: BESTSELLER SPOTLIGHT -->
+        <section class="section">
+            <div class="container grid-2 align-center">
+                <div class="bestseller-visual text-center gs-fade-up">
+                    <img src="./assets/peri-peri.png" alt="Peri Peri Makhana" style="max-width: 80%;">
+                </div>
+                <div class="bestseller-content gs-fade-up">
+                    <span class="badge border-brand text-brand-orange inline-block mb-1 border-brand" style="border-color: var(--brand-orange)">BESTSELLER</span>
+                    <h2 class="font-display section-title text-dark-brown mb-1">Peri Peri Fire</h2>
+                    <p class="section-desc mb-2">A fiery blend of exotic African bird's eye chili and aromatic spices. For those who demand bold, uncompromising flavor in every crunch.</p>
+                    
+                    <ul style="list-style: none; margin-bottom: 2rem;">
+                        <li class="mb-05"><i class="ph ph-check-circle text-brand-orange mr-1"></i> Intense Flavor Profile</li>
+                        <li class="mb-05"><i class="ph ph-check-circle text-brand-orange mr-1"></i> Zero Trans Fat</li>
+                        <li class="mb-05"><i class="ph ph-check-circle text-brand-orange mr-1"></i> Perfect Evening Snack</li>
+                    </ul>
+                    
+                    <button class="btn btn-primary magnetic" onclick="cartApp.addToCart(1)">Add To Cart - ₹149</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: CUSTOMER REVIEWS -->
+        <section class="section" style="background: rgba(225, 106, 56, 0.05);">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h2 class="font-display section-title text-dark-brown gs-fade-up">What Tastemakers Say</h2>
+                </div>
+                <div class="grid-3">
+                    <div class="review-card gs-fade-up" style="transition-delay: 0.1s;">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <p class="mb-1 text-sm italic">"Absolutely the most premium makhana I've ever tasted. The Peri Peri is perfectly balanced. Highly recommended!"</p>
+                        <h5 class="font-display text-dark-brown">- Sarah J.</h5>
+                    </div>
+                    <div class="review-card gs-fade-up" style="transition-delay: 0.2s;">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <p class="mb-1 text-sm italic">"The packaging is luxury, but the taste is even better. Cream & Onion is my go-to desk snack now."</p>
+                        <h5 class="font-display text-dark-brown">- Rohan M.</h5>
+                    </div>
+                    <div class="review-card gs-fade-up" style="transition-delay: 0.3s;">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <p class="mb-1 text-sm italic">"Finally, a healthy snack that doesn't compromise on flavor. Pudina Burst feels incredibly fresh."</p>
+                        <h5 class="font-display text-dark-brown">- Priya K.</h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: BULK & CORPORATE -->
+        <section class="section">
+            <div class="container text-center max-w-800 mx-auto" style="max-width: 800px;">
+                <h2 class="font-display section-title text-dark-brown mb-1 gs-fade-up">Corporate & Bulk Gifting</h2>
+                <p class="section-desc mb-2 gs-fade-up">Elevate your corporate gifting with our premium makhana hampers. Perfect for festive seasons, client appreciation, and employee wellness.</p>
+                <a href="mailto:corporate@nutspice.com" class="btn btn-secondary magnetic gs-fade-up">Inquire Now</a>
+            </div>
+        </section>
+
+        <!-- SECTION 8: FAQ -->
+        <section class="section" id="faq" style="background: #fff;">
+            <div class="container mx-auto" style="max-width: 800px;">
+                <h2 class="font-display section-title text-dark-brown text-center mb-4 gs-fade-up">Frequently Asked Questions</h2>
+                
+                <div class="faq-container gs-fade-up">
+                    <div class="faq-item active">
+                        <div class="faq-head"><span>Are your products vegan?</span><i class="ph ph-plus faq-icon"></i></div>
+                        <div class="faq-body" style="height: auto; padding-top: 1rem;">
+                            <p>Our Peri Peri and Pudina Burst flavors are 100% vegan. The Cream & Onion and Cheesy flavors contain dairy derivatives.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-head"><span>Are they gluten-free?</span><i class="ph ph-plus faq-icon"></i></div>
+                        <div class="faq-body">
+                            <p>Yes! All our makhana flavors are completely gluten-free and safe for those with gluten sensitivities.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-head"><span>What is the shelf life?</span><i class="ph ph-plus faq-icon"></i></div>
+                        <div class="faq-body">
+                            <p>Unopened, our premium jars have a shelf life of 6 months. Once opened, we recommend consuming within 14 days and keeping the lid tightly closed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 9: NEWSLETTER -->
+        <section class="section" style="background: var(--dark-brown); color: var(--bg-primary);">
+            <div class="container text-center mx-auto" style="max-width: 600px;">
+                <h2 class="font-display section-title text-primary mb-1 gs-fade-up">Join The Club</h2>
+                <p class="mb-2 gs-fade-up">Subscribe for exclusive early access to new flavors and luxury wellness tips.</p>
+                <div class="flex justify-center gap-1 gs-fade-up">
+                    <input type="email" placeholder="Your Email Address" style="padding: 1rem 1.5rem; width: 300px; border-radius: 50px; border: none; outline: none; font-family: var(--font-body);">
+                    <button class="btn btn-primary magnetic" style="border: 1px solid var(--brand-orange);">Subscribe</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SECTION 10: FOOTER -->
+    <footer class="footer bg-primary pt-4 pb-1">
+        <div class="container">
+            <div class="grid-3 mb-4">
+                <div class="f-brand">
+                    <img src="./assets/logo.png" alt="NutSpice" style="height: 50px; margin-bottom: 1rem;">
+                    <p class="text-choc-brown text-sm">Luxury you can crunch. Redefining modern snacking with uncompromising quality.</p>
+                </div>
+                <div class="f-links flex-col gap-1">
+                    <h4 class="text-dark-brown font-display text-lg mb-1">Explore</h4>
+                    <a href="index.html" class="text-choc-brown hover-brand transition">Home</a>
+                    <a href="shop.html" class="text-choc-brown hover-brand transition">Collection</a>
+                </div>
+                <div class="f-socials flex-col gap-1">
+                    <h4 class="text-dark-brown font-display text-lg mb-1">Follow Us</h4>
+                    <div class="social-icons flex gap-1">
+                        <a href="#" class="w-40 h-40 flex-center border-brown border-radius-50 text-dark-brown hover-bg-brand hover-text-white transition magnetic"><i class="ph ph-instagram-logo"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom border-t-brown pt-2 text-center text-choc-brown text-sm">
+                <p>&copy; 2026 NutSpice. Crafted for the Modern Lifestyle.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shop Logic & GSAP -->
+    <script src="shop.js"></script>
+</body>
+</html>
