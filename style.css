@@ -365,7 +365,12 @@ ul {
 /* Why Makhana */
 .check-list li { display: flex; align-items: center; gap: 0.8rem; font-size: 1.2rem; font-weight: 500; color: var(--dark-brown); margin-bottom: 1rem; }
 .image-card { height: 500px; position: relative; }
-.parallax-img { height: 120%; width: 100%; object-fit: cover; object-position: left center; position: absolute; top: -10%; left: 0; }
+.parallax-img { height: 120%; width: 100%; object-fit: cover; position: absolute; top: -10%; left: 0; }
+.image-overlay-content { position: absolute; top: 50%; left: 8%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; pointer-events: none; max-width: 250px; width: 45%; }
+.overlay-text { font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; color: var(--dark-brown); white-space: nowrap; }
+.overlay-divider { display: flex; align-items: center; gap: 0.5rem; width: 100%; }
+.overlay-divider .line { flex: 1; height: 1px; background: var(--dark-brown); opacity: 0.3; }
+.overlay-divider i { font-size: 1.2rem; color: var(--dark-brown); }
 .premium-gradient-box { background: var(--gradient-premium); }
 
 /* Health Benefits */
@@ -636,6 +641,8 @@ ul {
     .panel-text { max-width: 100%; }
     .panel-jar { width: 45vw; max-width: 180px; margin-top: 1rem; }
     .image-card { height: 350px; }
+    .image-overlay-content { left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 300px; }
+    .overlay-text { font-size: 0.75rem; }
 }
 
 /* 480px BREAKPOINT (Phones) */
