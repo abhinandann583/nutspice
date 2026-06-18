@@ -365,7 +365,7 @@ ul {
 /* Why Makhana */
 .check-list li { display: flex; align-items: center; gap: 0.8rem; font-size: 1.2rem; font-weight: 500; color: var(--dark-brown); margin-bottom: 1rem; }
 .image-card { height: 500px; position: relative; }
-.parallax-img { height: 120%; width: 100%; object-fit: cover; position: absolute; top: -10%; left: 0; }
+.parallax-img { height: 120%; width: 100%; object-fit: cover; object-position: left center; position: absolute; top: -10%; left: 0; }
 .premium-gradient-box { background: var(--gradient-premium); }
 
 /* Health Benefits */
@@ -635,7 +635,7 @@ ul {
     .panel-content { flex-direction: column; text-align: center; gap: 1rem; padding: 1rem; }
     .panel-text { max-width: 100%; }
     .panel-jar { width: 45vw; max-width: 180px; margin-top: 1rem; }
-    
+    .image-card { height: 350px; }
 }
 
 /* 480px BREAKPOINT (Phones) */
