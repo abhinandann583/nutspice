@@ -181,10 +181,11 @@ if(flavourItems.length > 0) {
                         ease: "back.out(1.5)"
                     });
                 }
-            });
-        });
-    });
-}
+            }); // end gsap.to
+        }); // end addEventListener
+        }); // end eventType.forEach
+    }); // end flavourItems.forEach
+} // end if(flavourItems.length > 0)
 
 // ==========================================
 // 6B. FLAVOUR JOURNEY — Horizontal Scroll
