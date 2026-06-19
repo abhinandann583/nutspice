@@ -71,6 +71,7 @@ const cartApp = {
 
     saveCart() {
         localStorage.setItem('nutspice_cart', JSON.stringify(cart));
+        window.dispatchEvent(new Event('cartUpdated'));
         this.updateCartUI();
     },
 
@@ -274,3 +275,36 @@ function initParticles() {
         });
     }
 }
+
+// ==========================================
+// SCROLLSPY (ADDED)
+// ==========================================
+window.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    if (sections.length > 0) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50% 0px -50% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').includes('#' + id)) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(sec => observer.observe(sec));
+    }
+});

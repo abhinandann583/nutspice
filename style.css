@@ -286,7 +286,28 @@ ul {
 .nav-container { display: flex; justify-content: space-between; align-items: center; }
 .nav-logo { height: 40px; }
 .nav-links { display: flex; gap: 3rem; }
-.nav-link { font-weight: 500; color: var(--dark-brown); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+.nav-link { 
+    font-weight: 500; 
+    color: var(--dark-brown); 
+    text-transform: uppercase; 
+    font-size: 0.9rem; 
+    letter-spacing: 1px; 
+    position: relative;
+    transition: color 0.3s;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--brand-orange);
+    transition: width 0.3s ease;
+}
+.nav-link:hover { color: var(--brand-orange); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+.nav-link.active { color: var(--brand-orange); }
 
 /* =========================================
    SECTIONS

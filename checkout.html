@@ -36,11 +36,41 @@
 </head>
 <body class="font-body text-choc-brown">
 
-    <nav class="navbar" style="background: #fff; position: relative;">
-        <div class="container nav-container" style="justify-content: center;">
-            <a href="index.html"><img src="./assets/logo.png" alt="NutSpice Logo" class="nav-logo"></a>
+    <nav class="navbar glass-nav" style="position: relative;">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand magnetic">
+                <img src="./assets/logo.png" alt="NutSpice" class="nav-logo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html#flavours" class="magnetic nav-link">Collection</a>
+                <a href="index.html#story" class="magnetic nav-link">Our Story</a>
+                <a href="index.html#ingredients" class="magnetic nav-link">Ingredients</a>
+                <a href="shop.html#comparison" class="magnetic nav-link">Compare</a>
+            </div>
+            <div class="nav-actions flex align-center" style="gap: 1.5rem;">
+                <a href="shop.html" class="nav-link magnetic border-none bg-transparent cursor-pointer relative" id="cart-btn" style="color: var(--dark-brown); text-decoration: none;">
+                    <i class="ph ph-shopping-bag" style="font-size: 1.5rem;"></i>
+                    <span id="cart-count" class="absolute bg-brand-orange text-white border-radius-50 flex-center" style="width: 20px; height: 20px; font-size: 0.7rem; top: -5px; right: -10px;">0</span>
+                </a>
+                <a href="shop.html" class="btn btn-primary magnetic hide-mobile" style="padding: 0.75rem 1.5rem; font-size: 0.8rem;">Shop Now</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
+    
+    <!-- Mobile Overlay Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-content">
+            <a href="index.html#flavours" class="mobile-nav-link">Collection</a>
+            <a href="index.html#story" class="mobile-nav-link">Our Story</a>
+            <a href="index.html#ingredients" class="mobile-nav-link">Ingredients</a>
+            <a href="shop.html#comparison" class="mobile-nav-link">Compare</a>
+            <a href="shop.html" class="btn btn-primary mt-4 w-100">Shop Now</a>
+        </div>
+    </div>
 
     <main class="checkout-grid">
         <div class="checkout-form">

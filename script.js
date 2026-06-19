@@ -398,3 +398,63 @@ faqItems.forEach(item => {
         }
     });
 });
+
+// ==========================================
+// SCROLLSPY & GLOBAL CART LOGIC
+// ==========================================
+
+window.addEventListener('DOMContentLoaded', () => {
+    // ScrollSpy for Navigation Links
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    if (sections.length > 0) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50% 0px -50% 0px', // Trigger when section is in the middle of the viewport
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    
+                    // Remove active from all
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        // If link href contains the section ID, make it active
+                        if (link.getAttribute('href').includes('#' + id)) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(sec => observer.observe(sec));
+    }
+
+    // Global Cart Counter update
+    const cartCountEl = document.getElementById('cart-count');
+    if (cartCountEl) {
+        const updateCartCount = () => {
+            const cart = JSON.parse(localStorage.getItem('nutspice_cart')) || [];
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountEl.textContent = count;
+        };
+        
+        // Initial update
+        updateCartCount();
+
+        // Listen for storage changes in case cart updates from another tab
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'nutspice_cart') {
+                updateCartCount();
+            }
+        });
+        
+        // Listen to custom event for same-page updates (e.g., from shop.js)
+        window.addEventListener('cartUpdated', updateCartCount);
+    }
+});
