@@ -502,7 +502,7 @@ ul {
 
 .loader-progress-bar {
     width: 250px;
-    height: 2px;
+    height: 6px;
     background: var(--border-color);
     position: relative;
     overflow: hidden;
