@@ -540,7 +540,8 @@ ul {
 }
 
 .nav-logo {
-    height: 40px;
+    height: 90px;
+    transition: var(--transition);
 }
 
 .nav-links {
@@ -1329,6 +1330,10 @@ ul {
 
     .mobile-menu-btn {
         display: flex;
+    }
+
+    .nav-logo {
+        height: 60px;
     }
 
     .section {
