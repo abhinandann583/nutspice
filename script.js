@@ -97,6 +97,23 @@ const fsBg = document.querySelector('.fs-bg');
 const fsImg = document.getElementById('fs-active-img');
 
 if (flavourItems.length > 0) {
+    let currentFlavourId = 1;
+    const urlMap = {
+        1: 'product-peri-peri.html',
+        2: 'product-pudina.html',
+        3: 'product-cream-onion.html',
+        4: 'product-cheesy.html'
+    };
+    
+    if (fsImg) {
+        fsImg.style.cursor = 'pointer';
+        fsImg.addEventListener('click', () => {
+            if (urlMap[currentFlavourId]) {
+                window.location.href = urlMap[currentFlavourId];
+            }
+        });
+    }
+
     const updateShowcaseColors = (activeItem) => {
         const newBg = activeItem.getAttribute('data-bg');
         const activeText = activeItem.getAttribute('data-text');
@@ -136,6 +153,8 @@ if (flavourItems.length > 0) {
                 updateShowcaseColors(this);
 
                 const newImg = this.getAttribute('data-img');
+                const idAttr = this.getAttribute('data-id');
+                if (idAttr) currentFlavourId = parseInt(idAttr);
 
                 // Image swap with scale/rotate bounce
                 gsap.to(fsImg, {
