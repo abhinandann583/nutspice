@@ -3,10 +3,10 @@
 // ==========================================
 
 const products = [
-    { id: 1, name: "Peri Peri Makhana", desc: "Fiery African bird's eye chili.", weight: "100g", price: 149, img: "./assets/peri-peri.png", color: "#D85035" },
-    { id: 2, name: "Pudina Burst", desc: "Refreshing mint and spices.", weight: "100g", price: 149, img: "./assets/pudina-burst.png", color: "#4A7A59" },
-    { id: 3, name: "Cream & Onion", desc: "Classic rich cream and chives.", weight: "100g", price: 149, img: "./assets/cream-onion.png", color: "#8A7BB4" },
-    { id: 4, name: "Cheesy Makhana", desc: "Decadent cheddar cheese dust.", weight: "100g", price: 149, img: "./assets/cheesy.png", color: "#F29C38" }
+    { id: 1, name: "Peri Peri Makhana", desc: "Fiery African bird's eye chili.", weight: "100g", price: 149, img: "./assets/peri-peri.png", color: "#D85035", url: "product-peri-peri.html" },
+    { id: 2, name: "Pudina Burst", desc: "Refreshing mint and spices.", weight: "100g", price: 149, img: "./assets/pudina-burst.png", color: "#4A7A59", url: "product-pudina.html" },
+    { id: 3, name: "Cream & Onion", desc: "Classic rich cream and chives.", weight: "100g", price: 149, img: "./assets/cream-onion.png", color: "#8A7BB4", url: "product-cream-onion.html" },
+    { id: 4, name: "Cheesy Makhana", desc: "Decadent cheddar cheese dust.", weight: "100g", price: 149, img: "./assets/cheesy.png", color: "#F29C38", url: "product-cheesy.html" }
 ];
 
 // --- CART STATE ---
@@ -23,7 +23,7 @@ const cartApp = {
         grid.innerHTML = products.map(p => `
             <div class="product-card gs-fade-up">
                 <div class="product-image-container">
-                    <img src="${p.img}" alt="${p.name}" class="product-image">
+                    <a href="${p.url}"><img src="${p.img}" alt="${p.name}" class="product-image"></a>
                 </div>
                 <div>
                     <h3 class="font-display text-dark-brown text-xl mb-05">${p.name}</h3>

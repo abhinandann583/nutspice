@@ -26,17 +26,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnAdd = document.getElementById('sticky-add-cart');
     const btnBuy = document.getElementById('sticky-buy-now');
 
+    const productDataMap = {
+        1: { id: 1, name: "Peri Peri Makhana", price: 149, flavour: "Peri Peri", image: "./assets/peri-peri.png" },
+        2: { id: 2, name: "Pudina Burst", price: 149, flavour: "Pudina", image: "./assets/pudina-burst.png" },
+        3: { id: 3, name: "Cream & Onion", price: 149, flavour: "Cream & Onion", image: "./assets/cream-onion.png" },
+        4: { id: 4, name: "Cheesy Makhana", price: 149, flavour: "Cheese", image: "./assets/cheesy.png" }
+    };
+
     if (btnAdd) {
-        btnAdd.addEventListener('click', () => {
-            if (window.cartApp) window.cartApp.addToCart(productId);
+        btnAdd.addEventListener('click', (e) => {
+            if (window.globalCart && productDataMap[productId]) {
+                window.globalCart.addItem(productDataMap[productId], e.target);
+            }
         });
     }
     
     if (btnBuy) {
-        btnBuy.addEventListener('click', () => {
-            if (window.cartApp) {
-                window.cartApp.addToCart(productId);
-                window.location.href = 'checkout.html';
+        btnBuy.addEventListener('click', (e) => {
+            if (window.globalCart && productDataMap[productId]) {
+                window.globalCart.cart = [];
+                window.globalCart.addItem(productDataMap[productId], e.target);
+                setTimeout(() => window.location.href = 'checkout.html', 300);
             }
         });
     }
