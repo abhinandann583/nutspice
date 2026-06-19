@@ -48,10 +48,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-button, input, textarea, select {
-    font-family: inherit;
-}
-
 h1,
 h2,
 h3,
@@ -59,7 +55,7 @@ h4,
 h5,
 h6 {
     font-family: var(--font-display);
-    font-weight: 400; /* Anton only supports weight 400 */
+    font-weight: 400;
     line-height: 1.1;
     letter-spacing: 0.03em;
     text-transform: uppercase;
@@ -793,8 +789,11 @@ ul {
 }
 
 .flavour-item h3 {
-    font-size: 1.5rem;
-    font-family: var(--font-body);
+    font-size: 1.8rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
     transition: color 0.4s;
 }
 
