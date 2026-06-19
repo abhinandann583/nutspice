@@ -73,13 +73,16 @@ class GlobalCart {
                 tooltip.className = 'cart-preview-tooltip';
                 tooltip.innerHTML = `
                     <div class="preview-header">
-                        <span>Cart</span>
-                        <span class="preview-count">0 items</span>
+                        <span class="preview-title">Cart</span>
                     </div>
-                    <div class="preview-content">
-                        Total: <span class="preview-total text-brand-orange font-bold">₹0</span>
+                    <div class="preview-items-list"></div>
+                    <div class="preview-footer">
+                        <div class="preview-total-wrap">
+                            <span class="preview-total-label">Total</span>
+                            <span class="preview-total font-display">₹0</span>
+                        </div>
+                        <div class="preview-btn">View Cart &rarr;</div>
                     </div>
-                    <div class="text-brand-orange preview-btn font-bold">Click to View Cart</div>
                 `;
                 btn.appendChild(tooltip);
             }
@@ -151,8 +154,25 @@ class GlobalCart {
                 tooltip.classList.add('hidden-always');
             } else {
                 tooltip.classList.remove('hidden-always');
-                tooltip.querySelector('.preview-count').innerText = `${totalQty} items`;
                 tooltip.querySelector('.preview-total').innerText = `₹${totalPrice}`;
+                
+                const list = tooltip.querySelector('.preview-items-list');
+                if (list) {
+                    const previewItems = this.cart.slice(0, 2); // Show max 2 items in preview
+                    let html = previewItems.map(item => `
+                        <div class="preview-item">
+                            <img src="${item.image}" alt="${item.name}" class="preview-item-img">
+                            <div class="preview-item-info">
+                                <div class="preview-item-name">${item.name}</div>
+                                <div class="preview-item-qty">Qty: ${item.qty}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                    if (this.cart.length > 2) {
+                        html += `<div class="preview-item-more">+ ${this.cart.length - 2} more item${this.cart.length - 2 > 1 ? 's' : ''}</div>`;
+                    }
+                    list.innerHTML = html;
+                }
             }
         });
 
