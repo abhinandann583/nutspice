@@ -25,6 +25,8 @@
 /* Floating Panel */
 #global-cart {
     position: fixed;
+    top: 0;
+    left: 0;
     z-index: 1001;
     background: rgba(255, 248, 206, 0.95);
     backdrop-filter: blur(20px);
