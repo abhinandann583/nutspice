@@ -440,7 +440,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (cartCountEl) {
         const updateCartCount = () => {
             const cart = JSON.parse(localStorage.getItem('nutspice_cart')) || [];
-            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            const count = cart.reduce((total, item) => total + item.qty, 0);
             cartCountEl.textContent = count;
         };
         
