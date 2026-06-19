@@ -53,35 +53,7 @@ window.addEventListener('load', () => {
       .from('.gs-fade-up', { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.1 }, "-=0.8");
 });
 
-// 3. Custom Magnetic Cursor
-const cursor = document.querySelector('.cursor');
-const follower = document.querySelector('.cursor-follower');
-
-gsap.set(cursor, {xPercent: -50, yPercent: -50});
-gsap.set(follower, {xPercent: -50, yPercent: -50});
-
-let xTo = gsap.quickTo(cursor, "x", {duration: 0, ease: "none"}),
-    yTo = gsap.quickTo(cursor, "y", {duration: 0, ease: "none"}),
-    xfTo = gsap.quickTo(follower, "x", {duration: 0.1, ease: "power3"}),
-    yfTo = gsap.quickTo(follower, "y", {duration: 0.1, ease: "power3"});
-
-document.addEventListener('mousemove', (e) => {
-    xTo(e.clientX);
-    yTo(e.clientY);
-    xfTo(e.clientX);
-    yfTo(e.clientY);
-});
-
-document.querySelectorAll('a, button, .magnetic, .faq-head, .hero-jar-layer').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        gsap.to(cursor, { scale: 0, duration: 0.3 });
-        gsap.to(follower, { scale: 1.5, backgroundColor: 'rgba(96,59,23,0.1)', border: '1px solid transparent', duration: 0.3 });
-    });
-    el.addEventListener('mouseleave', () => {
-        gsap.to(cursor, { scale: 1, duration: 0.3 });
-        gsap.to(follower, { scale: 1, backgroundColor: 'transparent', border: '1px solid var(--dark-brown)', duration: 0.3 });
-    });
-});
+// Custom cursor removed
 
 document.querySelectorAll('.magnetic').forEach(btn => {
     btn.addEventListener('mousemove', function(e) {
