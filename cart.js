@@ -134,7 +134,7 @@ class GlobalCart {
         const totalPrice = this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
         // Update total
-        this.totalEl.innerText = \`₹\${totalPrice}\`;
+        this.totalEl.innerText = `₹${totalPrice}`;
 
         // Update badges globally
         document.querySelectorAll('#cart-count').forEach(badge => {
@@ -151,8 +151,8 @@ class GlobalCart {
                 tooltip.classList.add('hidden-always');
             } else {
                 tooltip.classList.remove('hidden-always');
-                tooltip.querySelector('.preview-count').innerText = \`\${totalQty} items\`;
-                tooltip.querySelector('.preview-total').innerText = \`₹\${totalPrice}\`;
+                tooltip.querySelector('.preview-count').innerText = `${totalQty} items`;
+                tooltip.querySelector('.preview-total').innerText = `₹${totalPrice}`;
             }
         });
 
@@ -171,19 +171,19 @@ class GlobalCart {
             document.getElementById('global-cart-btns').style.display = 'flex';
             this.itemsContainer.innerHTML = this.cart.map(item => `
                 <div class="cart-item">
-                    <img src="\${item.image}" alt="\${item.name}" class="cart-item-img">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
                     <div class="cart-item-details">
-                        <h4 class="cart-item-title">\${item.name}</h4>
-                        <p class="cart-item-flavor">\${item.flavour}</p>
+                        <h4 class="cart-item-title">${item.name}</h4>
+                        <p class="cart-item-flavor">${item.flavour}</p>
                         <div class="cart-item-price-qty">
-                            <span class="cart-item-price">₹\${item.price * item.qty}</span>
+                            <span class="cart-item-price">₹${item.price * item.qty}</span>
                             <div class="cart-qty-control">
-                                <button class="qty-btn" onclick="window.globalCart.updateQty(\${item.id}, -1)">-</button>
-                                <span class="qty-value">\${item.qty}</span>
-                                <button class="qty-btn" onclick="window.globalCart.updateQty(\${item.id}, 1)">+</button>
+                                <button class="qty-btn" onclick="window.globalCart.updateQty(${item.id}, -1)">-</button>
+                                <span class="qty-value">${item.qty}</span>
+                                <button class="qty-btn" onclick="window.globalCart.updateQty(${item.id}, 1)">+</button>
                             </div>
                         </div>
-                        <button class="remove-btn mt-1" onclick="window.globalCart.removeItem(\${item.id})">Remove</button>
+                        <button class="remove-btn mt-1" onclick="window.globalCart.removeItem(${item.id})">Remove</button>
                     </div>
                 </div>
             `).join('');
