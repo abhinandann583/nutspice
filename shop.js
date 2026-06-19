@@ -23,7 +23,7 @@ const cartApp = {
         grid.innerHTML = products.map(p => `
             <div class="product-card gs-fade-up">
                 <div class="product-image-container">
-                    <a href="${p.url}"><img src="${p.img}" alt="${p.name}" class="product-image"></a>
+                    <a href="${p.url}" style="display: contents;"><img src="${p.img}" alt="${p.name}" class="product-image"></a>
                 </div>
                 <div>
                     <h3 class="font-display text-dark-brown text-xl mb-05">${p.name}</h3>
