@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheesy Delight | NutSpice</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="product.css">
+</head>
+<body class="product-page" data-product-id="4" style="--theme-bg: #1F1500; --theme-text: #FFB347; --theme-accent: #E58E00; --theme-glow: rgba(255, 179, 71, 0.15);">
+    
+    <!-- Global Navigation -->
+    <nav class="navbar" style="background: transparent; border-bottom: none; position: absolute; width: 100%; z-index: 100;">
+        <div class="container flex justify-between align-center h-100">
+            <a href="index.html" class="logo">
+                <img src="./assets/logo.png" alt="NutSpice Logo" style="filter: brightness(0) invert(1) sepia(1) hue-rotate(330deg) saturate(3) opacity(0.8);">
+            </a>
+            
+            <div class="nav-links hide-mobile">
+                <a href="shop.html" class="nav-link" style="color: var(--theme-text);">Shop</a>
+                <a href="index.html#story" class="nav-link" style="color: var(--theme-text);">Our Story</a>
+                <a href="index.html#ingredients" class="nav-link" style="color: var(--theme-text);">Ingredients</a>
+            </div>
+            
+            <div class="nav-actions flex align-center" style="gap: 1.5rem;">
+                <button class="nav-link magnetic cart-global-btn" id="cart-btn" style="color: var(--theme-text);">
+                    <i class="ph ph-shopping-bag" style="font-size: 1.5rem;"></i>
+                    <span id="cart-count" class="absolute bg-brand-orange text-white border-radius-50 flex-center" style="width: 20px; height: 20px; font-size: 0.7rem; top: -5px; right: -10px;">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sticky Action Bar -->
+    <div class="sticky-bar">
+        <div class="sticky-product-info">
+            <span class="sticky-title" style="color: var(--theme-text);">Cheesy Delight</span>
+            <span class="sticky-price" style="color: var(--theme-text);">₹149</span>
+        </div>
+        <div class="sticky-actions">
+            <button id="sticky-add-cart" class="sticky-btn-secondary">Add to Cart</button>
+            <button id="sticky-buy-now" class="sticky-btn-primary">Buy Now</button>
+        </div>
+    </div>
+
+    <!-- Editorial Hero -->
+    <section class="editorial-hero">
+        <div class="hero-glow"></div>
+        <div class="container hero-content">
+            <div class="hero-text-block">
+                <div class="hero-flavour-name" style="color: var(--theme-accent);">Cheesy Delight Makhana</div>
+                <h1 class="hero-emotional-statement">CHEAT DAY.<br>WITHOUT<br>THE GUILT.</h1>
+                <p class="hero-sub-copy">Rich cheddar.<br>Deep satisfaction.<br>Zero regret.</p>
+            </div>
+            <div class="hero-visual">
+                <img src="./assets/cheesy.png" alt="Cheesy Delight Jar" class="hero-jar">
+            </div>
+        </div>
+    </section>
+
+    <!-- Personality Section -->
+    <section class="personality-section">
+        <h2 class="personality-statement">FOR THE<br>INDULGER</h2>
+    </section>
+
+    <!-- Flavour Journey Timeline -->
+    <section class="journey-section">
+        <div class="journey-container">
+            <div class="journey-step">FOX NUTS</div>
+            <i class="ph ph-arrow-down journey-arrow" style="color: var(--theme-text);"></i>
+            <div class="journey-step">ROASTED</div>
+            <i class="ph ph-arrow-down journey-arrow" style="color: var(--theme-text);"></i>
+            <div class="journey-step">SEASONED</div>
+            <i class="ph ph-arrow-down journey-arrow" style="color: var(--theme-text);"></i>
+            <div class="journey-step">PERFECTED</div>
+            <i class="ph ph-arrow-down journey-arrow" style="color: var(--theme-text);"></i>
+            <div class="journey-step">NUTSPICE</div>
+        </div>
+    </section>
+
+    <!-- Sensory Experience -->
+    <section class="sensory-section">
+        <div class="sensory-grid">
+            <div class="sensory-row">
+                <span class="sensory-label">SPICE</span>
+                <div class="sensory-dots">
+                    <span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+            </div>
+            <div class="sensory-row">
+                <span class="sensory-label">CRUNCH</span>
+                <div class="sensory-dots">
+                    <span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span>
+                </div>
+            </div>
+            <div class="sensory-row">
+                <span class="sensory-label">RICHNESS</span>
+                <div class="sensory-dots">
+                    <span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span>
+                </div>
+            </div>
+            <div class="sensory-row">
+                <span class="sensory-label">REFRESHMENT</span>
+                <div class="sensory-dots">
+                    <span class="dot filled"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="testimonial-item">
+                <h3 class="testimonial-quote" style="color: var(--theme-text);">"The ultimate cheese fix. It has the richness of a cheat meal with the macros of a superfood."</h3>
+                <span class="testimonial-author" style="color: var(--theme-accent);">Fitness & Flavor</span>
+            </div>
+            <div class="testimonial-item">
+                <h3 class="testimonial-quote" style="color: var(--theme-text);">"I buy this by the dozen. An absolute essential in my pantry."</h3>
+                <span class="testimonial-author" style="color: var(--theme-accent);">Vikram M.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem Cross-Sell -->
+    <section class="cross-sell-section">
+        <h2 class="cross-sell-title" style="color: var(--theme-text);">EXPLORE THE COLLECTION</h2>
+        <div class="cross-sell-grid">
+            <a href="product-peri-peri.html" class="cs-card">
+                <div class="cs-bg" style="background: #A1281A;"></div>
+                <img src="./assets/peri-peri.png" class="cs-jar" alt="Peri Peri">
+                <div class="cs-content">
+                    <h3 class="cs-name">PERI PERI FIRE</h3>
+                    <span class="cs-link">Discover</span>
+                </div>
+            </a>
+            <a href="product-pudina.html" class="cs-card">
+                <div class="cs-bg" style="background: #2E5A35;"></div>
+                <img src="./assets/pudina-burst.png" class="cs-jar" alt="Pudina Burst">
+                <div class="cs-content">
+                    <h3 class="cs-name">PUDINA BURST</h3>
+                    <span class="cs-link">Discover</span>
+                </div>
+            </a>
+            <a href="product-cream-onion.html" class="cs-card">
+                <div class="cs-bg" style="background: #8E7AE6;"></div>
+                <img src="./assets/cream-onion.png" class="cs-jar" alt="Cream & Onion">
+                <div class="cs-content">
+                    <h3 class="cs-name">CREAM & ONION</h3>
+                    <span class="cs-link">Discover</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Core Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="cart.js"></script>
+    <script src="product.js"></script>
+</body>
+</html>

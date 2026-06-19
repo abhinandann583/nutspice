@@ -1,0 +1,444 @@
+/* ==========================================================================
+   NUTSPICE LUXURY EDITORIAL PRODUCT PAGES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BASE VARIABLES & RESET
+   -------------------------------------------------------------------------- */
+:root {
+    --theme-bg: #fff;
+    --theme-text: #1a1a1a;
+    --theme-accent: #ff4d00;
+    --theme-glow: rgba(0,0,0,0.1);
+}
+
+body.product-page {
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+    overflow-x: hidden;
+    transition: background-color 1s ease, color 1s ease;
+}
+
+/* --------------------------------------------------------------------------
+   HERO SECTION (Emotional Statement)
+   -------------------------------------------------------------------------- */
+.editorial-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 6rem 2rem 2rem;
+    overflow: hidden;
+}
+
+.hero-glow {
+    position: absolute;
+    width: 60vw;
+    height: 60vw;
+    background: var(--theme-glow);
+    border-radius: 50%;
+    filter: blur(100px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    animation: pulse-glow 8s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-glow {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+.hero-text-block {
+    text-align: left;
+}
+
+@media (max-width: 900px) {
+    .hero-text-block {
+        text-align: center;
+    }
+}
+
+.hero-flavour-name {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+.hero-emotional-statement {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(4rem, 8vw, 8rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    color: var(--theme-text);
+}
+
+.hero-sub-copy {
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    line-height: 1.4;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+.hero-visual {
+    position: relative;
+    height: 60vh;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-jar {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.4));
+    /* Float animation added via GSAP or CSS */
+    animation: float-jar 6s ease-in-out infinite;
+}
+
+@keyframes float-jar {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+/* --------------------------------------------------------------------------
+   STICKY ACTION BAR
+   -------------------------------------------------------------------------- */
+.sticky-bar {
+    position: fixed;
+    bottom: -100px; /* Hidden initially, slides up */
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sticky-bar.visible {
+    bottom: 0;
+}
+
+.sticky-product-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.sticky-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.sticky-price {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.sticky-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.sticky-btn-secondary {
+    background: transparent;
+    border: 1px solid var(--theme-text);
+    color: var(--theme-text);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sticky-btn-secondary:hover {
+    background: var(--theme-text);
+    color: var(--theme-bg);
+}
+
+.sticky-btn-primary {
+    background: var(--theme-accent);
+    border: none;
+    color: #fff;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sticky-btn-primary:hover {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .sticky-product-info { display: none; }
+    .sticky-actions { width: 100%; justify-content: space-between; }
+    .sticky-btn-secondary, .sticky-btn-primary { flex: 1; text-align: center; }
+}
+
+/* --------------------------------------------------------------------------
+   PERSONALITY SECTION ("Why This Flavour")
+   -------------------------------------------------------------------------- */
+.personality-section {
+    padding: 15vh 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.personality-statement {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 10vw, 12rem);
+    line-height: 0.85;
+    text-transform: uppercase;
+    color: var(--theme-text);
+    opacity: 0.1; /* Will be revealed via GSAP */
+}
+
+/* --------------------------------------------------------------------------
+   SENSORY EXPERIENCE (Dot Matrix)
+   -------------------------------------------------------------------------- */
+.sensory-section {
+    padding: 10vh 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.sensory-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sensory-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 1rem;
+}
+
+.sensory-label {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.sensory-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: clamp(15px, 3vw, 25px);
+    height: clamp(15px, 3vw, 25px);
+    border-radius: 50%;
+    border: 2px solid var(--theme-text);
+    opacity: 0; /* GSAP reveal */
+}
+
+.dot.filled {
+    background: var(--theme-text);
+}
+
+/* --------------------------------------------------------------------------
+   FLAVOUR JOURNEY TIMELINE
+   -------------------------------------------------------------------------- */
+.journey-section {
+    padding: 15vh 2rem;
+    text-align: center;
+}
+
+.journey-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.journey-step {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 6rem);
+    text-transform: uppercase;
+    opacity: 0.2;
+    transition: opacity 0.5s ease;
+}
+
+.journey-step.active {
+    opacity: 1;
+    color: var(--theme-accent);
+}
+
+.journey-arrow {
+    font-size: 2rem;
+    opacity: 0.3;
+}
+
+/* --------------------------------------------------------------------------
+   EDITORIAL TESTIMONIALS
+   -------------------------------------------------------------------------- */
+.testimonials-section {
+    padding: 15vh 2rem;
+    background: rgba(0,0,0,0.05); /* Subtle contrast */
+}
+
+.testimonial-item {
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto 8rem;
+}
+
+.testimonial-item:last-child {
+    margin-bottom: 0;
+}
+
+.testimonial-quote {
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-family: 'Playfair Display', serif; /* Use Playfair for editorial quotes */
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-author {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   CROSS-SELL ECOSYSTEM
+   -------------------------------------------------------------------------- */
+.cross-sell-section {
+    padding: 10vh 2rem;
+}
+
+.cross-sell-title {
+    text-align: center;
+    font-family: 'Anton', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 4rem;
+}
+
+.cross-sell-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+    .cross-sell-grid { grid-template-columns: 1fr; }
+}
+
+.cs-card {
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/5;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    transition: transform 0.4s ease;
+}
+
+.cs-card:hover {
+    transform: translateY(-10px);
+}
+
+.cs-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1;
+    transition: opacity 0.4s ease;
+}
+
+.cs-card:hover .cs-bg {
+    opacity: 0.8;
+}
+
+.cs-jar {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 60%;
+    object-fit: contain;
+    z-index: 2;
+    transition: transform 0.6s ease;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+}
+
+.cs-card:hover .cs-jar {
+    transform: translateX(-50%) scale(1.1) translateY(-10px);
+}
+
+.cs-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: #fff;
+}
+
+.cs-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.cs-link {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 4px;
+}
