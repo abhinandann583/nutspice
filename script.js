@@ -26,7 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
 // 1.5 Mobile Menu Toggle
 const mobileBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenuOverlay');
-if(mobileBtn && mobileMenu) {
+if (mobileBtn && mobileMenu) {
     mobileBtn.addEventListener('click', () => {
         mobileBtn.classList.toggle('open');
         mobileMenu.classList.toggle('active');
@@ -45,32 +45,32 @@ if(mobileBtn && mobileMenu) {
 // 2. Loading Screen & Hero Initial Animations
 window.addEventListener('load', () => {
     const tl = gsap.timeline();
-    
+
     tl.to('.loader-progress', { width: '100%', duration: 1.5, ease: "power2.inOut" })
-      .to('.loader-logo', { opacity: 0, y: -20, duration: 0.5 }, "+=0.2")
-      .to('.loader', { yPercent: -100, duration: 1, ease: "power4.inOut" })
-      .from('.title-line span', { y: 100, opacity: 0, duration: 1.2, ease: "power4.out", stagger: 0.1 }, "-=0.4")
-      .from('.gs-fade-up', { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.1 }, "-=0.8");
+        .to('.loader-logo', { opacity: 0, y: -20, duration: 0.5 }, "+=0.2")
+        .to('.loader', { yPercent: -100, duration: 1, ease: "power4.inOut" })
+        .from('.title-line span', { y: 100, opacity: 0, duration: 1.2, ease: "power4.out", stagger: 0.1 }, "-=0.4")
+        .from('.gs-fade-up', { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.1 }, "-=0.8");
 });
 
 // Custom cursor removed
 
 document.querySelectorAll('.magnetic').forEach(btn => {
-    btn.addEventListener('mousemove', function(e) {
+    btn.addEventListener('mousemove', function (e) {
         const position = this.getBoundingClientRect();
         const x = e.clientX - position.left - position.width / 2;
         const y = e.clientY - position.top - position.height / 2;
         gsap.to(this, { x: x * 0.3, y: y * 0.3, duration: 0.5, ease: "power2.out" });
     });
-    btn.addEventListener('mouseleave', function() {
+    btn.addEventListener('mouseleave', function () {
         gsap.to(this, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
     });
 });
 
 // 5. Hero Floating Particles
 const particlesContainer = document.getElementById('particles');
-if(particlesContainer) {
-    for(let i=0; i<15; i++) {
+if (particlesContainer) {
+    for (let i = 0; i < 15; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
         p.style.left = Math.random() * 100 + '%';
@@ -78,7 +78,7 @@ if(particlesContainer) {
         p.style.width = Math.random() * 6 + 4 + 'px';
         p.style.height = p.style.width;
         particlesContainer.appendChild(p);
-        
+
         gsap.to(p, {
             y: -100 - Math.random() * 100,
             x: -50 + Math.random() * 100,
@@ -96,39 +96,22 @@ const flavourItems = document.querySelectorAll('.flavour-item');
 const fsBg = document.querySelector('.fs-bg');
 const fsImg = document.getElementById('fs-active-img');
 
-if(flavourItems.length > 0) {
-    const btnAddToCart = document.getElementById('fs-add-to-cart');
-    const btnBuyNow = document.getElementById('fs-buy-now');
-    let currentFlavourId = 1;
-
-    if (btnAddToCart && btnBuyNow) {
-        btnAddToCart.addEventListener('click', () => {
-            if (window.cartApp) window.cartApp.addToCart(currentFlavourId);
-        });
-        
-        btnBuyNow.addEventListener('click', () => {
-            if (window.cartApp) {
-                window.cartApp.addToCart(currentFlavourId);
-                window.location.href = 'checkout.html';
-            }
-        });
-    }
-
+if (flavourItems.length > 0) {
     const updateShowcaseColors = (activeItem) => {
         const newBg = activeItem.getAttribute('data-bg');
         const activeText = activeItem.getAttribute('data-text');
         const isLightBg = newBg === '#FFB347'; // Cheesy Delight
-        
+
         const headingColor = isLightBg ? 'var(--dark-brown)' : '#FFF8CE';
         const pColor = isLightBg ? 'var(--choc-brown)' : 'rgba(255, 255, 255, 0.7)';
 
         // Animate BG
         gsap.to(fsBg, { backgroundColor: newBg, duration: 0.8, ease: "power2.inOut" });
-        
+
         // Animate all text to base readable color
         gsap.to('.fs-content h2, .flavour-item h3', { color: headingColor, duration: 0.4 });
         gsap.to('.fs-content > p, .flavour-item p', { color: pColor, duration: 0.4 });
-        
+
         // Highlight active item heading
         gsap.to(activeItem.querySelector('h3'), { color: activeText, duration: 0.4 });
     };
@@ -139,47 +122,39 @@ if(flavourItems.length > 0) {
     flavourItems.forEach(item => {
         // Support touch, click, and hover for mobile friendliness
         ['mouseenter', 'click', 'touchstart'].forEach(eventType => {
-            item.addEventListener(eventType, function(e) {
+            item.addEventListener(eventType, function (e) {
                 if (eventType === 'touchstart') e.preventDefault(); // prevent double firing
-                
-                if(this.classList.contains('active')) return;
-                
+
+                if (this.classList.contains('active')) return;
+
                 // Remove active from all
                 flavourItems.forEach(i => i.classList.remove('active'));
-                
+
                 // Add active to current
                 this.classList.add('active');
-                
+
                 updateShowcaseColors(this);
-                
+
                 const newImg = this.getAttribute('data-img');
-                currentFlavourId = parseInt(this.getAttribute('data-id') || '1');
-                
-                if (btnAddToCart && btnBuyNow) {
-                    gsap.fromTo([btnAddToCart, btnBuyNow], 
-                        { opacity: 0, y: 10 }, 
-                        { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, clearProps: "opacity,transform" }
-                    );
-                }
-            
-            // Image swap with scale/rotate bounce
-            gsap.to(fsImg, {
-                scale: 0.8,
-                opacity: 0,
-                rotation: -10,
-                duration: 0.3,
-                onComplete: () => {
-                    fsImg.src = newImg;
-                    gsap.to(fsImg, {
-                        scale: 1,
-                        opacity: 1,
-                        rotation: 0,
-                        duration: 0.6,
-                        ease: "back.out(1.5)"
-                    });
-                }
-            }); // end gsap.to
-        }); // end addEventListener
+
+                // Image swap with scale/rotate bounce
+                gsap.to(fsImg, {
+                    scale: 0.8,
+                    opacity: 0,
+                    rotation: -10,
+                    duration: 0.3,
+                    onComplete: () => {
+                        fsImg.src = newImg;
+                        gsap.to(fsImg, {
+                            scale: 1,
+                            opacity: 1,
+                            rotation: 0,
+                            duration: 0.6,
+                            ease: "back.out(1.5)"
+                        });
+                    }
+                }); // end gsap.to
+            }); // end addEventListener
         }); // end eventType.forEach
     }); // end flavourItems.forEach
 } // end if(flavourItems.length > 0)
@@ -226,9 +201,9 @@ if (journeySection && journeyTrack) {
             });
 
             panelTl.from(badge, { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" })
-                   .from(headline, { y: 80, opacity: 0, duration: 0.8, ease: "power4.out" }, "-=0.3")
-                   .from(sub, { y: 40, opacity: 0, duration: 0.6, ease: "power3.out" }, "-=0.4")
-                   .from(jar, { scale: 0.6, opacity: 0, rotation: -15, duration: 1, ease: "back.out(1.4)" }, "-=0.6");
+                .from(headline, { y: 80, opacity: 0, duration: 0.8, ease: "power4.out" }, "-=0.3")
+                .from(sub, { y: 40, opacity: 0, duration: 0.6, ease: "power3.out" }, "-=0.4")
+                .from(jar, { scale: 0.6, opacity: 0, rotation: -15, duration: 1, ease: "back.out(1.4)" }, "-=0.6");
         });
     });
 
@@ -249,16 +224,16 @@ if (journeySection && journeyTrack) {
             });
 
             panelTl.from(badge, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" })
-                   .from(headline, { y: 40, opacity: 0, duration: 0.6, ease: "power4.out" }, "-=0.2")
-                   .from(sub, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" }, "-=0.3")
-                   .from(jar, { scale: 0.8, opacity: 0, duration: 0.8, ease: "back.out(1.2)" }, "-=0.4");
+                .from(headline, { y: 40, opacity: 0, duration: 0.6, ease: "power4.out" }, "-=0.2")
+                .from(sub, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" }, "-=0.3")
+                .from(jar, { scale: 0.8, opacity: 0, duration: 0.8, ease: "back.out(1.2)" }, "-=0.4");
         });
     });
 
     // Universal: Continuous jar floating & glow pulses
     panels.forEach(panel => {
         const jar = panel.querySelector('.panel-jar');
-        
+
         // Continuous jar floating
         if (jar) {
             gsap.to(jar, {
@@ -321,7 +296,7 @@ if (journeySection && journeyTrack) {
 // 7. Scroll Reveals
 gsap.utils.toArray('section:not(.hero)').forEach(section => {
     const elements = section.querySelectorAll('.gs-fade-up');
-    if(elements.length) {
+    if (elements.length) {
         gsap.from(elements, {
             y: 40,
             opacity: 0,
@@ -363,7 +338,7 @@ counters.forEach(counter => {
                 val: target,
                 duration: 2.5,
                 ease: "power3.out",
-                onUpdate: function() {
+                onUpdate: function () {
                     counter.innerText = Math.floor(this.targets()[0].val);
                 }
             });
@@ -378,7 +353,7 @@ faqItems.forEach(item => {
     const head = item.querySelector('.faq-head');
     head.addEventListener('click', () => {
         const isActive = item.classList.contains('active');
-        
+
         // Close all
         faqItems.forEach(i => {
             i.classList.remove('active');
@@ -386,7 +361,7 @@ faqItems.forEach(item => {
         });
 
         // Open clicked if it wasn't active
-        if(!isActive) {
+        if (!isActive) {
             item.classList.add('active');
             const body = item.querySelector('.faq-body');
             gsap.set(body, { height: 'auto' });
@@ -416,7 +391,7 @@ window.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
-                    
+
                     // Remove active from all
                     navLinks.forEach(link => {
                         link.classList.remove('active');

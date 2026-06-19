@@ -1550,8 +1550,4 @@ ul {
         word-wrap: break-word;
         hyphens: auto;
     }
-    
-    .fs-cta-group {
-        flex-direction: column;
-    }
 }
