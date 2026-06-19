@@ -19,6 +19,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cart.css">
 </head>
 
 <body>
@@ -51,10 +52,10 @@
                 <a href="shop.html#comparison" class="magnetic nav-link">Compare</a>
             </div>
             <div class="nav-actions flex align-center" style="gap: 1.5rem;">
-                <a href="shop.html" class="nav-link magnetic border-none bg-transparent cursor-pointer relative" id="cart-btn" style="color: var(--dark-brown); text-decoration: none;">
+                <button class="nav-link magnetic cart-global-btn" id="cart-btn" style="color: var(--dark-brown);">
                     <i class="ph ph-shopping-bag" style="font-size: 1.5rem;"></i>
                     <span id="cart-count" class="absolute bg-brand-orange text-white border-radius-50 flex-center" style="width: 20px; height: 20px; font-size: 0.7rem; top: -5px; right: -10px;">0</span>
-                </a>
+                </button>
                 <a href="shop.html" class="btn btn-primary magnetic hide-mobile" style="padding: 0.75rem 1.5rem; font-size: 0.8rem;">Shop Now</a>
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
                     <span></span>
@@ -591,6 +592,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
     <script src="script.js"></script>
+    <script src="cart.js"></script>
 </body>
 
 </html>

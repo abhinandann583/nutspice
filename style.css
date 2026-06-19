@@ -906,20 +906,16 @@ ul {
     padding: 2.5rem 0;
     position: relative;
     /* Subtle fade on left and right edges */
-    -webkit-mask-image: linear-gradient(
-        to right,
-        transparent 0%,
-        black 8%,
-        black 92%,
-        transparent 100%
-    );
-    mask-image: linear-gradient(
-        to right,
-        transparent 0%,
-        black 8%,
-        black 92%,
-        transparent 100%
-    );
+    -webkit-mask-image: linear-gradient(to right,
+            transparent 0%,
+            black 8%,
+            black 92%,
+            transparent 100%);
+    mask-image: linear-gradient(to right,
+            transparent 0%,
+            black 8%,
+            black 92%,
+            transparent 100%);
 }
 
 .ingredients-marquee-track {
@@ -960,6 +956,7 @@ ul {
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-50%);
     }

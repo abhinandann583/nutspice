@@ -10,13 +10,10 @@ const products = [
 ];
 
 // --- CART STATE ---
-let cart = JSON.parse(localStorage.getItem('nutspice_cart')) || [];
 
 const cartApp = {
     init() {
         this.renderProducts();
-        this.updateCartUI();
-        this.bindEvents();
     },
 
     renderProducts() {
@@ -37,7 +34,7 @@ const cartApp = {
                     </div>
                     <div class="product-price">₹${p.price}</div>
                     <div class="product-actions">
-                        <button class="btn btn-secondary btn-add magnetic" onclick="cartApp.addToCart(${p.id})">Add to Cart</button>
+                        <button class="btn btn-secondary btn-add magnetic" onclick="cartApp.addToCart(${p.id}, this)">Add to Cart</button>
                         <button class="btn btn-buy magnetic" onclick="cartApp.buyNow(${p.id})">Buy Now</button>
                     </div>
                 </div>
@@ -45,105 +42,25 @@ const cartApp = {
         `).join('');
     },
 
-    addToCart(id) {
+    addToCart(id, originElement) {
         const product = products.find(p => p.id === id);
-        const existing = cart.find(item => item.id === id);
-        
-        if (existing) {
-            existing.qty += 1;
-        } else {
-            cart.push({ ...product, qty: 1 });
+        if (window.globalCart) {
+            window.globalCart.addItem({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                flavour: product.flavour,
+                image: product.img
+            }, originElement);
         }
-        
-        this.saveCart();
-        this.openSidebar();
     },
     
-    updateQty(id, delta) {
-        const item = cart.find(item => item.id === id);
-        if(!item) return;
-        item.qty += delta;
-        if(item.qty <= 0) {
-            cart = cart.filter(i => i.id !== id);
-        }
-        this.saveCart();
-    },
-
-    saveCart() {
-        localStorage.setItem('nutspice_cart', JSON.stringify(cart));
-        window.dispatchEvent(new Event('cartUpdated'));
-        this.updateCartUI();
-    },
-
-    updateCartUI() {
-        // Update count
-        const countEl = document.getElementById('cart-count');
-        const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-        if (countEl) countEl.innerText = totalQty;
-
-        // Update items list
-        const container = document.getElementById('cart-items-container');
-        if (!container) return;
-
-        if (cart.length === 0) {
-            container.innerHTML = `
-                <div class="text-center mt-4">
-                    <i class="ph ph-shopping-cart text-choc-brown" style="font-size: 3rem; opacity: 0.2;"></i>
-                    <p class="mt-1 text-choc-brown">Your cart is empty.</p>
-                </div>
-            `;
-        } else {
-            container.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <img src="${item.img}" class="cart-item-img">
-                    <div class="cart-item-info">
-                        <h4 class="font-display text-dark-brown">${item.name}</h4>
-                        <div class="text-brand-orange font-bold">₹${item.price}</div>
-                        <div class="cart-qty-ctrl">
-                            <button class="qty-btn" onclick="cartApp.updateQty(${item.id}, -1)">-</button>
-                            <span>${item.qty}</span>
-                            <button class="qty-btn" onclick="cartApp.updateQty(${item.id}, 1)">+</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Update total
-        const totalEl = document.getElementById('cart-total-price');
-        const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-        if (totalEl) totalEl.innerText = `₹${total}`;
-    },
-
     buyNow(id) {
-        // Clear cart and add this single item
-        cart = [];
-        this.addToCart(id);
-        window.location.href = 'checkout.html';
-    },
-
-    openSidebar() {
-        const sidebar = document.getElementById('cart-sidebar');
-        const overlay = document.getElementById('cart-overlay');
-        if(sidebar) sidebar.classList.add('open');
-        if(overlay) overlay.classList.add('show');
-    },
-    
-    closeSidebar() {
-        const sidebar = document.getElementById('cart-sidebar');
-        const overlay = document.getElementById('cart-overlay');
-        if(sidebar) sidebar.classList.remove('open');
-        if(overlay) overlay.classList.remove('show');
-    },
-
-    bindEvents() {
-        const btn = document.getElementById('cart-btn');
-        const overlay = document.getElementById('cart-overlay');
-        const close = document.getElementById('close-cart-btn');
-        
-        if(btn) btn.addEventListener('click', () => this.openSidebar());
-        if(overlay) overlay.addEventListener('click', () => this.closeSidebar());
-        if(close) close.addEventListener('click', () => this.closeSidebar());
+        if (window.globalCart) {
+            window.globalCart.cart = [];
+            this.addToCart(id, null);
+            window.location.href = 'checkout.html';
+        }
     }
 };
 

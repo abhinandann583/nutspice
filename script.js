@@ -435,26 +435,5 @@ window.addEventListener('DOMContentLoaded', () => {
         sections.forEach(sec => observer.observe(sec));
     }
 
-    // Global Cart Counter update
-    const cartCountEl = document.getElementById('cart-count');
-    if (cartCountEl) {
-        const updateCartCount = () => {
-            const cart = JSON.parse(localStorage.getItem('nutspice_cart')) || [];
-            const count = cart.reduce((total, item) => total + item.qty, 0);
-            cartCountEl.textContent = count;
-        };
-        
-        // Initial update
-        updateCartCount();
 
-        // Listen for storage changes in case cart updates from another tab
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'nutspice_cart') {
-                updateCartCount();
-            }
-        });
-        
-        // Listen to custom event for same-page updates (e.g., from shop.js)
-        window.addEventListener('cartUpdated', updateCartCount);
-    }
 });

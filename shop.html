@@ -43,7 +43,7 @@
                 <a href="shop.html#comparison" class="magnetic nav-link">Compare</a>
             </div>
             <div class="nav-actions flex align-center" style="gap: 1.5rem;">
-                <button class="nav-link magnetic border-none bg-transparent cursor-pointer relative" id="cart-btn" style="color: var(--dark-brown);">
+                <button class="nav-link magnetic border-none bg-transparent cursor-pointer relative cart-global-btn" id="cart-btn" style="color: var(--dark-brown);">
                     <i class="ph ph-shopping-bag" style="font-size: 1.5rem;"></i>
                     <span id="cart-count" class="absolute bg-brand-orange text-white border-radius-50 flex-center" style="width: 20px; height: 20px; font-size: 0.7rem; top: -5px; right: -10px;">0</span>
                 </button>
@@ -67,28 +67,7 @@
         </div>
     </div>
 
-    <!-- Cart Overlay & Sidebar -->
-    <div class="cart-overlay" id="cart-overlay"></div>
-    <div class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header">
-            <h2 class="font-display text-dark-brown">Your Cart</h2>
-            <i class="ph ph-x close-cart magnetic" id="close-cart-btn"></i>
-        </div>
-        <div class="cart-items" id="cart-items-container">
-            <!-- Items will be injected here via JS -->
-            <div class="text-center mt-4">
-                <i class="ph ph-shopping-cart text-choc-brown" style="font-size: 3rem; opacity: 0.2;"></i>
-                <p class="mt-1 text-choc-brown">Your cart is empty.</p>
-            </div>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total</span>
-                <span id="cart-total-price">₹0</span>
-            </div>
-            <button class="btn btn-primary w-100 magnetic" id="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
-        </div>
-    </div>
+
 
     <!-- Main Content -->
     <main>
@@ -313,6 +292,7 @@
     </footer>
 
     <!-- Shop Logic & GSAP -->
+    <script src="cart.js"></script>
     <script src="shop.js"></script>
 </body>
 </html>
