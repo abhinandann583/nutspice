@@ -17,7 +17,7 @@
         radial-gradient(at 100% 0%, hsla(41, 100%, 75%, 0.15) 0px, transparent 50%);
 
     /* Typography */
-    --font-display: 'Impact', 'Gothic 821 Condensed Regular', sans-serif;
+    --font-display: 'Anton', sans-serif;
     --font-body: 'Outfit', sans-serif;
 
     /* Layout */
@@ -48,6 +48,10 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+button, input, textarea, select {
+    font-family: inherit;
+}
+
 h1,
 h2,
 h3,
@@ -55,9 +59,10 @@ h4,
 h5,
 h6 {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 400; /* Anton only supports weight 400 */
     line-height: 1.1;
-    letter-spacing: 2px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
 }
 
 p {
