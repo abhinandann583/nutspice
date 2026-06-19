@@ -97,6 +97,23 @@ const fsBg = document.querySelector('.fs-bg');
 const fsImg = document.getElementById('fs-active-img');
 
 if(flavourItems.length > 0) {
+    const btnAddToCart = document.getElementById('fs-add-to-cart');
+    const btnBuyNow = document.getElementById('fs-buy-now');
+    let currentFlavourId = 1;
+
+    if (btnAddToCart && btnBuyNow) {
+        btnAddToCart.addEventListener('click', () => {
+            if (window.cartApp) window.cartApp.addToCart(currentFlavourId);
+        });
+        
+        btnBuyNow.addEventListener('click', () => {
+            if (window.cartApp) {
+                window.cartApp.addToCart(currentFlavourId);
+                window.location.href = 'checkout.html';
+            }
+        });
+    }
+
     const updateShowcaseColors = (activeItem) => {
         const newBg = activeItem.getAttribute('data-bg');
         const activeText = activeItem.getAttribute('data-text');
@@ -136,6 +153,14 @@ if(flavourItems.length > 0) {
                 updateShowcaseColors(this);
                 
                 const newImg = this.getAttribute('data-img');
+                currentFlavourId = parseInt(this.getAttribute('data-id') || '1');
+                
+                if (btnAddToCart && btnBuyNow) {
+                    gsap.fromTo([btnAddToCart, btnBuyNow], 
+                        { opacity: 0, y: 10 }, 
+                        { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, clearProps: "opacity,transform" }
+                    );
+                }
             
             // Image swap with scale/rotate bounce
             gsap.to(fsImg, {

@@ -455,6 +455,31 @@ ul {
 }
 
 /* Cursor & Loader */
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--dark-brown);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100000;
+}
+
+.cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid var(--dark-brown);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+}
+
 .loader {
     position: fixed;
     top: 0;
@@ -492,7 +517,7 @@ ul {
 
 /* Navigation */
 .navbar {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -1524,5 +1549,9 @@ ul {
     h6 {
         word-wrap: break-word;
         hyphens: auto;
+    }
+    
+    .fs-cta-group {
+        flex-direction: column;
     }
 }
