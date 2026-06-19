@@ -100,15 +100,78 @@ body { overflow-x: hidden; }
 
 .compare-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
 }
 
-.compare-item { margin-bottom: 2rem; }
+@media (max-width: 768px) {
+    .compare-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.compare-card {
+    background: rgba(255, 248, 206, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.compare-card:hover {
+    transform: translateY(-8px);
+}
+
+/* Specific glows */
+.compare-card.pudina { --glow-color: rgba(46, 90, 53, 0.3); }
+.compare-card.cream { --glow-color: rgba(142, 122, 230, 0.3); }
+.compare-card.peri { --glow-color: rgba(216, 80, 53, 0.3); }
+.compare-card.cheesy { --glow-color: rgba(255, 179, 71, 0.3); }
+
+.compare-card:hover {
+    box-shadow: 0 20px 40px var(--glow-color);
+    border-color: var(--glow-color);
+}
+
+.compare-img-wrapper {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.compare-img {
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+    filter: drop-shadow(0 10px 20px rgba(96,59,23,0.15));
+}
+
+.compare-card:hover .compare-img {
+    transform: translateY(-10px) scale(1.05);
+}
+
+.compare-info {
+    width: 100%;
+}
+
+.compare-item { 
+    margin-bottom: 1.2rem; 
+    width: 100%;
+}
+.compare-item:last-child { margin-bottom: 0; }
 
 .bar-bg {
-    background: rgba(255, 248, 206, 0.1);
-    height: 8px;
+    background: rgba(96, 59, 23, 0.1);
+    height: 6px;
     border-radius: 4px;
     margin-top: 0.5rem;
     overflow: hidden;
@@ -119,6 +182,21 @@ body { overflow-x: hidden; }
     background: var(--brand-orange);
     width: 0; /* Animated via GSAP */
     border-radius: 4px;
+}
+
+.bestseller-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--brand-orange);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 10;
 }
 
 
