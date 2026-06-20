@@ -91,132 +91,229 @@ if (particlesContainer) {
     }
 }
 
-// 6. Interactive Flavour Mood System
-const moodItems = document.querySelectorAll('.mood-item');
-const universeJars = document.querySelectorAll('.universe-jar');
-const ambientGlow = document.getElementById('ambient-glow');
+// 6. Interactive Flavour Showcase
+const flavourItems = document.querySelectorAll('.flavour-item');
+const fsBg = document.querySelector('.fs-bg');
+const fsImg = document.getElementById('fs-active-img');
 
-const flavourGlowMap = {
-    'peri': 'radial-gradient(circle, rgba(216, 80, 53, 0.2) 0%, rgba(216, 80, 53, 0) 70%)',
-    'pudina': 'radial-gradient(circle, rgba(46, 204, 113, 0.2) 0%, rgba(46, 204, 113, 0) 70%)',
-    'cream': 'radial-gradient(circle, rgba(155, 89, 182, 0.2) 0%, rgba(155, 89, 182, 0) 70%)',
-    'cheesy': 'radial-gradient(circle, rgba(241, 196, 15, 0.2) 0%, rgba(241, 196, 15, 0) 70%)'
-};
-
-if(moodItems.length && universeJars.length) {
-    moodItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            const flavour = item.getAttribute('data-flavour');
-            
-            // Update ambient glow
-            if(ambientGlow) {
-                ambientGlow.style.background = flavourGlowMap[flavour] || '';
-            }
-
-            // Dim all jars except the matched one
-            universeJars.forEach(jar => {
-                if(jar.getAttribute('data-id') === flavour) {
-                    jar.classList.remove('dimmed');
-                    gsap.to(jar, { scale: 1.1, duration: 0.4, ease: "power2.out" });
-                } else {
-                    jar.classList.add('dimmed');
-                    gsap.to(jar, { scale: 1, duration: 0.4, ease: "power2.out" });
-                }
-            });
-        });
-
-        item.addEventListener('mouseleave', () => {
-            // Reset jars
-            universeJars.forEach(jar => {
-                jar.classList.remove('dimmed');
-                gsap.to(jar, { scale: 1, duration: 0.4, ease: "power2.out" });
-            });
-            // Reset glow
-            if(ambientGlow) {
-                ambientGlow.style.background = 'radial-gradient(circle, rgba(216, 80, 53, 0.15) 0%, rgba(216, 80, 53, 0) 70%)';
-            }
-        });
-    });
-}
-
-// 7. Hero Mouse Parallax (Floating Universe)
-const heroSection = document.querySelector('.editorial-hero-section');
-if(heroSection && universeJars.length) {
-    heroSection.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 2;
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
-
-        universeJars.forEach(jar => {
-            const depth = parseFloat(jar.getAttribute('data-depth')) || 0.1;
-            gsap.to(jar, {
-                x: x * 100 * depth,
-                y: y * 100 * depth,
-                duration: 1,
-                ease: "power2.out"
-            });
-        });
-    });
+if (flavourItems.length > 0) {
+    let currentFlavourId = 1;
+    const urlMap = {
+        1: 'product-peri-peri.html',
+        2: 'product-pudina.html',
+        3: 'product-cream-onion.html',
+        4: 'product-cheesy.html'
+    };
     
-    // Continuous subtle floating
-    universeJars.forEach((jar, index) => {
-        gsap.to(jar, {
-            y: "+=15",
-            duration: 2 + index * 0.2,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
+    if (fsImg) {
+        fsImg.style.cursor = 'pointer';
+        fsImg.addEventListener('click', () => {
+            if (urlMap[currentFlavourId]) {
+                window.location.href = urlMap[currentFlavourId];
+            }
         });
-    });
-}
+    }
 
-// 8. Cinematic Scroll Transformation
-const cinematicText = document.querySelector('.cinematic-scroll-section');
-if(cinematicText && universeJars.length) {
+    const updateShowcaseColors = (activeItem) => {
+        const newBg = activeItem.getAttribute('data-bg');
+        const activeText = activeItem.getAttribute('data-text');
+        const isLightBg = newBg === '#FFB347'; // Cheesy Delight
+
+        const headingColor = isLightBg ? 'var(--dark-brown)' : '#FFF8CE';
+        const pColor = isLightBg ? 'var(--choc-brown)' : 'rgba(255, 255, 255, 0.7)';
+
+        // Animate BG
+        gsap.to(fsBg, { backgroundColor: newBg, duration: 0.8, ease: "power2.inOut" });
+
+        // Animate all text to base readable color
+        gsap.to('.fs-content h2, .flavour-item h3', { color: headingColor, duration: 0.4 });
+        gsap.to('.fs-content > p, .flavour-item p', { color: pColor, duration: 0.4 });
+
+        // Highlight active item heading
+        gsap.to(activeItem.querySelector('h3'), { color: activeText, duration: 0.4 });
+    };
+
+    // Init BG
+    updateShowcaseColors(flavourItems[0]);
+
+    flavourItems.forEach(item => {
+        // Support touch, click, and hover for mobile friendliness
+        ['mouseenter', 'click', 'touchstart'].forEach(eventType => {
+            item.addEventListener(eventType, function (e) {
+                if (eventType === 'touchstart') e.preventDefault(); // prevent double firing
+
+                if (this.classList.contains('active')) return;
+
+                // Remove active from all
+                flavourItems.forEach(i => i.classList.remove('active'));
+
+                // Add active to current
+                this.classList.add('active');
+
+                updateShowcaseColors(this);
+
+                const newImg = this.getAttribute('data-img');
+                const idAttr = this.getAttribute('data-id');
+                if (idAttr) currentFlavourId = parseInt(idAttr);
+
+                // Image swap with scale/rotate bounce
+                gsap.to(fsImg, {
+                    scale: 0.8,
+                    opacity: 0,
+                    rotation: -10,
+                    duration: 0.3,
+                    onComplete: () => {
+                        fsImg.src = newImg;
+                        gsap.to(fsImg, {
+                            scale: 1,
+                            opacity: 1,
+                            rotation: 0,
+                            duration: 0.6,
+                            ease: "back.out(1.5)"
+                        });
+                    }
+                }); // end gsap.to
+            }); // end addEventListener
+        }); // end eventType.forEach
+    }); // end flavourItems.forEach
+} // end if(flavourItems.length > 0)
+
+// ==========================================
+// 6B. FLAVOUR JOURNEY — Horizontal Scroll
+// ==========================================
+const journeySection = document.querySelector('.flavour-journey');
+const journeyTrack = document.querySelector('.journey-track');
+
+if (journeySection && journeyTrack) {
+    const panels = gsap.utils.toArray('.journey-panel');
     let mm = gsap.matchMedia();
-    
+
     mm.add("(min-width: 769px)", () => {
-        const tl = gsap.timeline({
+        // Desktop: Pin the section and scroll horizontally
+        const horizontalScroll = gsap.to(journeyTrack, {
+            x: () => -(journeyTrack.scrollWidth - window.innerWidth),
+            ease: "none",
             scrollTrigger: {
-                trigger: '.editorial-hero-section',
-                start: "top top",
-                end: "+=100%",
-                scrub: 1,
+                trigger: journeySection,
                 pin: true,
+                scrub: 1,
+                end: () => "+=" + (journeyTrack.scrollWidth - window.innerWidth),
+                invalidateOnRefresh: true,
             }
         });
 
-        // Jars explode outwards
-        tl.to(universeJars[0], { x: -300, y: 200, scale: 1.2, rotation: -15 }, 0)
-          .to(universeJars[1], { x: 300, y: -100, scale: 1.2, rotation: 10 }, 0)
-          .to(universeJars[2], { x: 200, y: 300, scale: 1.2, rotation: 20 }, 0)
-          .to(universeJars[3], { scale: 0.5, opacity: 0, y: -200 }, 0)
-          
-          // Fade out hero content
-          .to('.hero-content', { opacity: 0, y: -50 }, 0)
-          .to('#ambient-glow', { opacity: 0 }, 0)
-          .to('#particles', { opacity: 0 }, 0);
-          
-        // Cinematic text reveals as hero pins
-        const cLines = document.querySelectorAll('.c-line');
-        if(cLines.length) {
-            gsap.from(cLines, {
-                y: 100,
-                opacity: 0,
-                stagger: 0.2,
-                duration: 1,
+        // Desktop: Per-panel entrance animations (containerAnimation)
+        panels.forEach((panel, i) => {
+            const badge = panel.querySelector('.panel-badge');
+            const headline = panel.querySelector('.panel-headline');
+            const sub = panel.querySelector('.panel-sub');
+            const jar = panel.querySelector('.panel-jar');
+
+            const panelTl = gsap.timeline({
                 scrollTrigger: {
-                    trigger: cinematicText,
-                    start: "top 70%",
-                    end: "center center",
-                    scrub: 1
+                    trigger: panel,
+                    containerAnimation: horizontalScroll,
+                    start: "left 80%",
+                    end: "left 20%",
+                    toggleActions: "play none none reverse",
                 }
+            });
+
+            panelTl.from(badge, { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" })
+                .from(headline, { y: 80, opacity: 0, duration: 0.8, ease: "power4.out" }, "-=0.3")
+                .from(sub, { y: 40, opacity: 0, duration: 0.6, ease: "power3.out" }, "-=0.4")
+                .from(jar, { scale: 0.6, opacity: 0, rotation: -15, duration: 1, ease: "back.out(1.4)" }, "-=0.6");
+        });
+    });
+
+    mm.add("(max-width: 768px)", () => {
+        // Mobile: Vertical scroll animations
+        panels.forEach((panel, i) => {
+            const badge = panel.querySelector('.panel-badge');
+            const headline = panel.querySelector('.panel-headline');
+            const sub = panel.querySelector('.panel-sub');
+            const jar = panel.querySelector('.panel-jar');
+
+            const panelTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: panel,
+                    start: "top 70%",
+                    toggleActions: "play none none reverse",
+                }
+            });
+
+            panelTl.from(badge, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" })
+                .from(headline, { y: 40, opacity: 0, duration: 0.6, ease: "power4.out" }, "-=0.2")
+                .from(sub, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" }, "-=0.3")
+                .from(jar, { scale: 0.8, opacity: 0, duration: 0.8, ease: "back.out(1.2)" }, "-=0.4");
+        });
+    });
+
+    // Universal: Continuous jar floating & glow pulses
+    panels.forEach(panel => {
+        const jar = panel.querySelector('.panel-jar');
+
+        // Continuous jar floating
+        if (jar) {
+            gsap.to(jar, {
+                y: -15,
+                duration: 2.5,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+            });
+        }
+
+        // Glow pulse
+        const glow = panel.querySelector('.panel-glow');
+        if (glow) {
+            gsap.to(glow, {
+                scale: 1.2,
+                opacity: 0.6,
+                duration: 3,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+        }
+    });
+
+    // Spawn floating particles for each panel
+    const particleConfigs = [
+        { id: 'peri-particles', count: 15 },
+        { id: 'pudina-particles', count: 15 },
+        { id: 'cream-particles', count: 12 },
+        { id: 'cheesy-particles', count: 15 }
+    ];
+
+    particleConfigs.forEach(config => {
+        const container = document.getElementById(config.id);
+        if (!container) return;
+        for (let i = 0; i < config.count; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 6 + 3;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            container.appendChild(p);
+
+            gsap.to(p, {
+                y: -80 - Math.random() * 120,
+                x: -40 + Math.random() * 80,
+                opacity: 0,
+                duration: 4 + Math.random() * 4,
+                repeat: -1,
+                delay: Math.random() * 3,
+                ease: "none"
             });
         }
     });
 }
 
-// 9. Scroll Reveals
-gsap.utils.toArray('section:not(.editorial-hero-section)').forEach(section => {
+// 7. Scroll Reveals
+gsap.utils.toArray('section:not(.hero)').forEach(section => {
     const elements = section.querySelectorAll('.gs-fade-up');
     if (elements.length) {
         gsap.from(elements, {
@@ -234,7 +331,21 @@ gsap.utils.toArray('section:not(.editorial-hero-section)').forEach(section => {
     }
 });
 
-// 10. Statistics Counters
+// 8. Parallax Image
+gsap.utils.toArray('.parallax-img').forEach(img => {
+    gsap.to(img, {
+        yPercent: 20,
+        ease: "none",
+        scrollTrigger: {
+            trigger: img.parentElement,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+        }
+    });
+});
+
+// 9. Statistics Counters
 const counters = document.querySelectorAll('.counter-val');
 counters.forEach(counter => {
     ScrollTrigger.create({
@@ -252,6 +363,30 @@ counters.forEach(counter => {
             });
         },
         once: true
+    });
+});
+
+// 10. FAQ Accordion
+const faqItems = document.querySelectorAll('.faq-item');
+faqItems.forEach(item => {
+    const head = item.querySelector('.faq-head');
+    head.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        // Close all
+        faqItems.forEach(i => {
+            i.classList.remove('active');
+            gsap.to(i.querySelector('.faq-body'), { height: 0, duration: 0.3, ease: "power2.inOut" });
+        });
+
+        // Open clicked if it wasn't active
+        if (!isActive) {
+            item.classList.add('active');
+            const body = item.querySelector('.faq-body');
+            gsap.set(body, { height: 'auto' });
+            const height = body.offsetHeight;
+            gsap.fromTo(body, { height: 0 }, { height: height, duration: 0.3, ease: "power2.inOut" });
+        }
     });
 });
 
@@ -290,4 +425,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         sections.forEach(sec => observer.observe(sec));
     }
+
+
 });
