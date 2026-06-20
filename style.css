@@ -654,568 +654,197 @@ ul {
     color: var(--dark-brown);
 }
 
-.jar-wrapper {
+
+/* =========================================
+   LUXURY EDITORIAL REDESIGN STYLES
+   ========================================= */
+
+/* Hero Specifics */
+.editorial-hero-section {
+    min-height: 100vh;
+    padding-top: 120px;
     position: relative;
-    width: 130%;
-    left: -15%;
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    overflow: hidden;
+    background-color: var(--premium-cream);
 }
 
-.hero-jar-layer {
-    width: 32%;
-    margin: 0 -6%;
-    position: relative;
-    z-index: 2;
-    filter: drop-shadow(0 20px 30px rgba(96, 59, 23, 0.2));
-    transition: transform 0.3s ease, filter 0.3s ease;
-    cursor: pointer;
-}
-
-.hero-jar-layer:hover {
-    transform: translateY(-30px) scale(1.1);
-    z-index: 10;
-    filter: drop-shadow(0 40px 50px rgba(96, 59, 23, 0.4));
-}
-
-.glow-effect {
+.ambient-glow {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    background: var(--brand-orange);
-    filter: blur(100px);
-    opacity: 0.4;
-    border-radius: 50%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.jar-shadow {
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 20px;
-    background: rgba(96, 59, 23, 0.4);
-    filter: blur(15px);
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(216, 80, 53, 0.15) 0%, rgba(216, 80, 53, 0) 70%);
     border-radius: 50%;
     z-index: 1;
     pointer-events: none;
+    transition: background 0.8s ease;
 }
 
-.floating-obj {
-    animation: float 6s ease-in-out infinite;
+.hero-visual {
+    perspective: 1000px;
 }
 
-.floating-obj-slow {
-    animation: float 8s ease-in-out infinite;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-20px);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-}
-
-/* Difference */
-.card {
-    padding: 3rem 2rem;
-    text-align: center;
-}
-
-.card-icon {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Flavour Showcase */
-.flavour-showcase {
-    position: relative;
-    min-height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    padding: 120px 0 80px;
-}
-
-.fs-bg {
+/* Floating Flavour Universe */
+.flavour-universe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
-}
-
-.fs-visual {
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
 }
 
-.fs-main-img {
-    max-width: 500px;
-    max-height: 75vh;
-    object-fit: contain;
-    filter: drop-shadow(0 40px 50px rgba(0, 0, 0, 0.3));
+.universe-jar {
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: filter 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
+    filter: drop-shadow(0 20px 30px rgba(96, 59, 23, 0.2));
 }
 
-.flavour-item {
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(96, 59, 23, 0.1);
-    transition: var(--transition);
-    opacity: 0.6;
+.universe-jar img {
+    width: 100%;
+    height: auto;
 }
 
-.flavour-item:last-child {
-    border-bottom: none;
+.universe-jar:hover {
+    filter: drop-shadow(0 30px 40px rgba(96, 59, 23, 0.4));
+    z-index: 100 !important;
 }
 
-.flavour-item h3 {
-    font-size: 1.8rem;
+.universe-tooltip {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    transition: color 0.4s;
+    font-size: 1.2rem;
+    color: var(--dark-brown);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    background: rgba(255, 248, 206, 0.9);
+    padding: 0.2rem 1rem;
+    border-radius: 20px;
 }
 
-.flavour-item p {
-    font-size: 1rem;
-    color: var(--choc-brown);
-    margin-top: 0.5rem;
-}
-
-.flavour-item.active {
+.universe-jar:hover .universe-tooltip {
     opacity: 1;
-    padding-left: 1.5rem;
 }
 
-.flavour-item:hover {
-    opacity: 0.8;
+.dimmed {
+    opacity: 0.3;
+    filter: grayscale(0.5) blur(2px) !important;
 }
 
-/* Why Makhana */
-.check-list li {
+/* Position mapping */
+.universe-jar.center-focus { width: 35%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 4; }
+.universe-jar.top-right { width: 22%; top: 10%; right: 10%; z-index: 3; }
+.universe-jar.bottom-left { width: 25%; bottom: 10%; left: 5%; z-index: 5; }
+.universe-jar.bottom-right { width: 20%; bottom: 15%; right: 15%; z-index: 2; }
+
+/* Interactive Flavour Mood System */
+.mood-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+}
+
+.mood-item {
+    font-size: 1.2rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--dark-brown);
-    margin-bottom: 1rem;
+    color: var(--choc-brown);
 }
 
-.image-card {
-    height: 500px;
-    position: relative;
-}
+.mood-emoji { margin-right: 0.5rem; font-size: 1.5rem; }
+.mood-arrow { margin: 0 0.5rem; opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; }
+.mood-name { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; }
 
-.parallax-img {
-    height: 120%;
+.mood-item:hover { color: var(--brand-orange); }
+.mood-item:hover .mood-arrow, .mood-item:hover .mood-name { opacity: 1; transform: translateX(0); }
+
+/* Cinematic Scroll Section */
+.cinematic-scroll-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--premium-cream);
+}
+.cinematic-text { font-size: clamp(4rem, 8vw, 8rem); line-height: 1.1; }
+
+/* Sensory Experience Section */
+.sensory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 70vh;
     width: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: -10%;
-    left: 0;
 }
-
-.image-overlay-content {
-    position: absolute;
-    top: 50%;
-    left: 8%;
-    transform: translateY(-50%);
+.sensory-block {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
-    pointer-events: none;
-    max-width: 250px;
-    width: 45%;
-}
-
-.overlay-text {
-    font-family: var(--font-body);
-    font-size: 0.8rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    font-weight: 500;
-    color: var(--dark-brown);
-    white-space: nowrap;
-}
-
-.overlay-divider {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    width: 100%;
-}
-
-.overlay-divider .line {
-    flex: 1;
-    height: 1px;
-    background: var(--dark-brown);
-    opacity: 0.3;
-}
-
-.overlay-divider i {
-    font-size: 1.2rem;
-    color: var(--dark-brown);
-}
-
-.premium-gradient-box {
-    background: var(--gradient-premium);
-}
-
-/* Health Benefits */
-.stat-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-}
-
-/* Story */
-.scale-110 {
-    transform: scale(1.1);
-}
-
-/* Ingredients Marquee */
-.ingredients-marquee-wrapper {
+    text-align: center;
     overflow: hidden;
-    white-space: nowrap;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-    padding: 2.5rem 0;
-    position: relative;
-    /* Subtle fade on left and right edges */
-    -webkit-mask-image: linear-gradient(to right,
-            transparent 0%,
-            black 8%,
-            black 92%,
-            transparent 100%);
-    mask-image: linear-gradient(to right,
-            transparent 0%,
-            black 8%,
-            black 92%,
-            transparent 100%);
+    padding: 2rem;
+    cursor: pointer;
+    transition: flex 0.5s ease;
 }
-
-.ingredients-marquee-track {
-    display: flex;
-    width: max-content;
-    animation: marquee-scroll 45s linear infinite;
+.sensory-block:hover {
+    flex: 1.5;
 }
-
-.ingredients-marquee-wrapper:hover .ingredients-marquee-track {
-    animation-play-state: paused;
-}
-
-.ingredients-marquee {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.marquee-phrase {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 600;
-    color: #603B17;
-    letter-spacing: 0.5px;
-    padding: 0 1.5rem;
-    white-space: nowrap;
-}
-
-.marquee-dot {
-    font-size: 1.4rem;
-    color: var(--brand-orange);
-    opacity: 0.5;
-    padding: 0 0.25rem;
-    user-select: none;
-}
-
-@keyframes marquee-scroll {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-
-/* Testimonials */
-.icon-huge {
-    font-size: 4rem;
-}
-
-.testimonial-text {
-    font-size: 2.5rem;
-    line-height: 1.4;
-}
-
-/* FAQ */
-.faq-head i {
-    transition: transform 0.3s;
-}
-
-.faq-item.active .faq-head i {
-    transform: rotate(45deg);
-}
-
-/* Utility width/height */
-.w-150 {
-    width: 150px;
-}
-
-.w-40 {
-    width: 40px;
-}
-
-.h-40 {
-    height: 40px;
-}
-
-/* =========================================
-   RESPONSIVE
-   ========================================= */
-/* =========================================
-   FLAVOUR JOURNEY — Horizontal Scroll
-   ========================================= */
-.flavour-journey {
-    position: relative;
-    overflow: hidden;
-}
-
-.journey-track {
-    display: flex;
-    width: 400vw;
-    will-change: transform;
-}
-
-.journey-panel {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Atmosphere Gradient Layers */
-.panel-atmosphere {
+.sensory-bg {
     position: absolute;
     inset: 0;
-    z-index: 1;
-    opacity: 0.6;
+    opacity: 0.8;
+    transition: transform 1s ease, opacity 0.5s ease;
+}
+.sensory-block:hover .sensory-bg {
+    transform: scale(1.05);
+    opacity: 1;
+}
+.sensory-content {
+    transition: transform 0.5s ease;
+}
+.sensory-block:hover .sensory-content {
+    transform: translateY(-10px);
+}
+.sensory-title { font-size: clamp(2rem, 3vw, 4rem); letter-spacing: 2px; }
+.sensory-desc { font-family: var(--font-body); font-size: 1.1rem; opacity: 0.8; margin-top: 0.5rem; }
+
+/* Personality Cards */
+.personality-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid var(--border-color);
+}
+.personality-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(96, 59, 23, 0.1);
 }
 
-.panel-atmo-peri {
-    background: radial-gradient(ellipse at 30% 50%, rgba(216, 80, 53, 0.4) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(255, 120, 50, 0.25) 0%, transparent 50%);
-}
-
-.panel-atmo-pudina {
-    background: radial-gradient(ellipse at 30% 50%, rgba(34, 139, 34, 0.35) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 80%, rgba(0, 200, 100, 0.15) 0%, transparent 50%);
-}
-
-.panel-atmo-cream {
-    background: radial-gradient(ellipse at 30% 50%, rgba(138, 123, 180, 0.35) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 30%, rgba(180, 160, 220, 0.2) 0%, transparent 50%);
-}
-
-.panel-atmo-cheesy {
-    background: radial-gradient(ellipse at 30% 50%, rgba(255, 216, 129, 0.35) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 70%, rgba(242, 156, 56, 0.2) 0%, transparent 50%);
-}
-
-/* Glow Effect */
-.panel-glow {
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    filter: blur(120px);
-    z-index: 1;
-    opacity: 0.4;
-}
-
-.peri-glow {
-    background: #D85035;
-    top: 20%;
-    right: 10%;
-}
-
-.pudina-glow {
-    background: #2ECC71;
-    top: 30%;
-    right: 15%;
-}
-
-.cream-glow {
-    background: #9B59B6;
-    top: 25%;
-    right: 10%;
-}
-
-.cheesy-glow {
-    background: #F1C40F;
-    top: 20%;
-    right: 12%;
-}
-
-/* Content Layout */
-.panel-content {
+/* Collection Ending Section */
+.ending-card {
     position: relative;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 85%;
-    max-width: 1200px;
-    gap: 3rem;
-    padding: 2rem 0;
+    background: transparent;
+    border-radius: 16px;
+    border: 1px solid transparent;
+    transition: border 0.3s ease;
 }
-
-.panel-text {
-    flex: 1;
-    max-width: 550px;
-}
-
-.panel-badge {
-    display: inline-block;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 0.4rem 1.2rem;
-    border-radius: 50px;
-    margin-bottom: 1.2rem;
-}
-
-.panel-headline {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
-    line-height: 0.95;
-    color: #fff;
-    letter-spacing: 0.06em;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-}
-
-/* Per-panel headline accent colors */
-.panel-peri .panel-headline {
-    color: #FF6B3D;
-}
-
-.panel-pudina .panel-headline {
-    color: #5DEBB5;
-}
-
-.panel-cream .panel-headline {
-    color: #C9A7EB;
-}
-
-.panel-cheesy .panel-headline {
-    color: #FFD881;
-}
-
-.panel-sub {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.6);
-    max-width: 380px;
-}
-
-/* Jar Visual */
-.panel-visual {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.panel-jar {
-    width: 320px;
-    max-width: 35vw;
-    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
-    will-change: transform;
-}
-
-/* Panel Particles Container */
-.panel-particles {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.panel-particles .particle {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.4;
-}
-
-/* Per-panel particle colors */
-.panel-peri .panel-particles .particle {
-    background: #D85035;
-}
-
-.panel-pudina .panel-particles .particle {
-    background: #2ECC71;
-}
-
-.panel-cream .panel-particles .particle {
-    background: #9B59B6;
-}
-
-.panel-cheesy .panel-particles .particle {
-    background: #F1C40F;
-}
-
-/* Panel backgrounds */
-.panel-peri {
-    background: #1A0A00;
-}
-
-.panel-pudina {
-    background: #0A1F12;
-}
-
-.panel-cream {
-    background: #1A1028;
-}
-
-.panel-cheesy {
-    background: #1F1500;
+.ending-card:hover {
+    border-color: var(--border-color);
 }
 
 /* =========================================

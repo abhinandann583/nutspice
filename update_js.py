@@ -1,97 +1,9 @@
-// ==========================================
-// NUTSPICE - LUXURY GSAP ANIMATIONS & LOGIC
-// ==========================================
+import sys
 
-// 1. Initialize Lenis Smooth Scrolling
-const lenis = new Lenis({
-    duration: 0.8,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    mouseMultiplier: 1.5,
-    smoothTouch: false,
-    touchMultiplier: 2,
-    infinite: false,
-});
+with open('c:\\Users\\Dell\\OneDrive\\Documents\\MyFirstWebsite\\script.js', 'r', encoding='utf-8') as f:
+    lines = f.readlines()
 
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
-gsap.registerPlugin(ScrollTrigger);
-
-// 1.5 Mobile Menu Toggle
-const mobileBtn = document.getElementById('mobileMenuBtn');
-const mobileMenu = document.getElementById('mobileMenuOverlay');
-if (mobileBtn && mobileMenu) {
-    mobileBtn.addEventListener('click', () => {
-        mobileBtn.classList.toggle('open');
-        mobileMenu.classList.toggle('active');
-        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-    });
-    // Close menu when clicking a link
-    document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileBtn.classList.remove('open');
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-}
-
-// 2. Loading Screen & Hero Initial Animations
-window.addEventListener('load', () => {
-    const tl = gsap.timeline();
-
-    tl.to('.loader-progress', { width: '100%', duration: 1.5, ease: "power2.inOut" })
-        .to('.loader-logo', { opacity: 0, y: -20, duration: 0.5 }, "+=0.2")
-        .to('.loader', { yPercent: -100, duration: 1, ease: "power4.inOut" })
-        .from('.title-line span', { y: 100, opacity: 0, duration: 1.2, ease: "power4.out", stagger: 0.1 }, "-=0.4")
-        .from('.gs-fade-up', { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.1 }, "-=0.8");
-});
-
-// Custom cursor removed
-
-document.querySelectorAll('.magnetic').forEach(btn => {
-    btn.addEventListener('mousemove', function (e) {
-        const position = this.getBoundingClientRect();
-        const x = e.clientX - position.left - position.width / 2;
-        const y = e.clientY - position.top - position.height / 2;
-        gsap.to(this, { x: x * 0.3, y: y * 0.3, duration: 0.5, ease: "power2.out" });
-    });
-    btn.addEventListener('mouseleave', function () {
-        gsap.to(this, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
-    });
-});
-
-// 5. Hero Floating Particles
-const particlesContainer = document.getElementById('particles');
-if (particlesContainer) {
-    for (let i = 0; i < 15; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = Math.random() * 100 + '%';
-        p.style.top = Math.random() * 100 + '%';
-        p.style.width = Math.random() * 6 + 4 + 'px';
-        p.style.height = p.style.width;
-        particlesContainer.appendChild(p);
-
-        gsap.to(p, {
-            y: -100 - Math.random() * 100,
-            x: -50 + Math.random() * 100,
-            opacity: 0,
-            duration: 3 + Math.random() * 4,
-            repeat: -1,
-            ease: "none",
-            delay: Math.random() * 2
-        });
-    }
-}
-
-// 6. Interactive Flavour Mood System
+new_js = """// 6. Interactive Flavour Mood System
 const moodItems = document.querySelectorAll('.mood-item');
 const universeJars = document.querySelectorAll('.universe-jar');
 const ambientGlow = document.getElementById('ambient-glow');
@@ -291,3 +203,10 @@ window.addEventListener('DOMContentLoaded', () => {
         sections.forEach(sec => observer.observe(sec));
     }
 });
+"""
+
+with open('c:\\Users\\Dell\\OneDrive\\Documents\\MyFirstWebsite\\script.js', 'w', encoding='utf-8') as f:
+    f.writelines(lines[:93])
+    f.write(new_js)
+
+print("Updated script.js successfully")
