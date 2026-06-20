@@ -131,4 +131,138 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    // 8. Interactive Hero
+    const interactiveHero = document.querySelector('.interactive-hero');
+    if (interactiveHero) {
+        const jar = interactiveHero.querySelector('.hero-jar');
+        const glow = interactiveHero.querySelector('.flavour-hover-glow');
+        const card = interactiveHero.querySelector('.flavour-story-card');
+        const particleContainer = interactiveHero.querySelector('.flavour-particles');
+        const flavour = interactiveHero.getAttribute('data-flavour');
+
+        const glowColors = {
+            'peri': 'radial-gradient(circle, rgba(229,57,53,0.5) 0%, rgba(200,40,30,0) 70%)',
+            'pudina': 'radial-gradient(circle, rgba(76,175,80,0.5) 0%, rgba(50,130,60,0) 70%)',
+            'cream': 'radial-gradient(circle, rgba(142,122,230,0.5) 0%, rgba(100,80,180,0) 70%)',
+            'cheesy': 'radial-gradient(circle, rgba(255,179,71,0.5) 0%, rgba(200,130,40,0) 70%)'
+        };
+
+        const particleColors = {
+            'peri': ['#E53935', '#FF5722', '#D84315'],
+            'pudina': ['#4CAF50', '#81C784', '#2E7D32'],
+            'cream': ['#FFFFFF', '#F3E5F5', '#E1BEE7'],
+            'cheesy': ['#FFB347', '#FFCA28', '#FFA000']
+        };
+
+        let particleInterval;
+        let isHovered = false;
+
+        function createParticle() {
+            if (!isHovered) return;
+            const p = document.createElement('div');
+            p.classList.add('hover-particle');
+            const colors = particleColors[flavour] || ['#fff'];
+            p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const size = Math.random() * 6 + 2;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            
+            p.style.left = (Math.random() * 80 + 10) + '%';
+            p.style.top = (Math.random() * 20 + 80) + '%';
+            
+            particleContainer.appendChild(p);
+            
+            gsap.to(p, {
+                y: -Math.random() * 100 - 50,
+                x: (Math.random() - 0.5) * 40,
+                opacity: 0,
+                duration: Math.random() * 1.5 + 1,
+                ease: "power1.out",
+                onComplete: () => p.remove()
+            });
+        }
+
+        function activateHover() {
+            if(isHovered) return;
+            isHovered = true;
+            // Jar pop
+            gsap.to(jar, {
+                scale: 1.5,
+                y: -50,
+                filter: 'drop-shadow(0 40px 60px rgba(0,0,0,0.5)) brightness(1.15)',
+                duration: 0.5,
+                ease: 'back.out(1.5)'
+            });
+            // Glow
+            glow.style.background = glowColors[flavour] || glowColors['peri'];
+            gsap.to(glow, {
+                opacity: 1,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+            // Card
+            gsap.to(card, {
+                opacity: 1,
+                y: -15,
+                scale: 1.05,
+                filter: 'blur(0px)',
+                duration: 0.5,
+                ease: 'back.out(1.2)'
+            });
+            // Particles
+            particleInterval = setInterval(createParticle, 200);
+        }
+
+        function deactivateHover() {
+            if(!isHovered) return;
+            isHovered = false;
+            gsap.to(jar, {
+                scale: 1,
+                y: 0,
+                filter: 'drop-shadow(0 0 0 rgba(0,0,0,0)) brightness(1)',
+                duration: 0.4,
+                ease: 'power3.out'
+            });
+            gsap.to(glow, {
+                opacity: 0,
+                duration: 0.5
+            });
+            gsap.to(card, {
+                opacity: 0,
+                y: 20,
+                scale: 1,
+                filter: 'blur(5px)',
+                duration: 0.4
+            });
+            clearInterval(particleInterval);
+        }
+
+        // Desktop Events
+        interactiveHero.addEventListener('mouseenter', activateHover);
+        interactiveHero.addEventListener('mouseleave', deactivateHover);
+
+        // Mobile Events
+        let tapped = false;
+        interactiveHero.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                if (!tapped) {
+                    activateHover();
+                    tapped = true;
+                    // Reset if tapped elsewhere
+                    const clickOutside = (evt) => {
+                        if (!interactiveHero.contains(evt.target)) {
+                            deactivateHover();
+                            tapped = false;
+                            document.removeEventListener('click', clickOutside);
+                        }
+                    };
+                    setTimeout(() => document.addEventListener('click', clickOutside), 100);
+                } else {
+                    deactivateHover();
+                    tapped = false;
+                }
+            }
+        });
+    }
 });
