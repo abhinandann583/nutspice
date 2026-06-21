@@ -425,6 +425,106 @@ window.addEventListener('DOMContentLoaded', () => {
 
         sections.forEach(sec => observer.observe(sec));
     }
+    // ==========================================
+    // GLOBAL PRODUCT HOVER SYSTEM (SYSTEM A)
+    // ==========================================
+    const hoverWrappers = document.querySelectorAll('.global-hover-wrapper');
+    
+    hoverWrappers.forEach(wrapper => {
+        // Build the dynamic DOM
+        const flavour = wrapper.getAttribute('data-flavour') || 'peri';
+        const name = wrapper.getAttribute('data-name') || 'Flavour Name';
+        const price = wrapper.getAttribute('data-price') || '₹149';
+        const tagline = wrapper.getAttribute('data-tagline') || 'Premium Taste';
+        const link = wrapper.getAttribute('data-link') || '#';
 
+        const glowColors = {
+            'peri': 'radial-gradient(circle, rgba(229,57,53,0.5) 0%, rgba(200,40,30,0) 70%)',
+            'pudina': 'radial-gradient(circle, rgba(76,175,80,0.5) 0%, rgba(50,130,60,0) 70%)',
+            'cream': 'radial-gradient(circle, rgba(142,122,230,0.5) 0%, rgba(100,80,180,0) 70%)',
+            'cheesy': 'radial-gradient(circle, rgba(255,179,71,0.5) 0%, rgba(200,130,40,0) 70%)'
+        };
+
+        // Inject Glow
+        const glow = document.createElement('div');
+        glow.className = 'global-hover-glow';
+        glow.style.background = glowColors[flavour] || glowColors['peri'];
+        wrapper.insertBefore(glow, wrapper.firstChild);
+
+        // Inject Panel
+        const panel = document.createElement('div');
+        panel.className = 'global-glass-panel';
+        panel.innerHTML = `
+            <h3 class="global-panel-title">${name}</h3>
+            <div class="global-panel-price">${price}</div>
+            <div class="global-panel-tagline">${tagline}</div>
+            <button class="global-panel-btn global-btn-primary" onclick="window.location.href='checkout.html'; event.stopPropagation();">BUY NOW</button>
+            <button class="global-panel-btn global-btn-secondary" onclick="window.location.href='${link}'; event.stopPropagation();">ADD TO CART</button>
+        `;
+        wrapper.appendChild(panel);
+
+        const img = wrapper.querySelector('img');
+        const btns = panel.querySelectorAll('.global-panel-btn');
+
+        // Init buttons state - handled by CSS now
+
+        let isHovered = false;
+
+        function activate() {
+            if(isHovered) return;
+
+            // Close any other open panels to prevent overlapping
+            document.querySelectorAll('.global-hover-wrapper.active').forEach(w => {
+                if(w !== wrapper && w.deactivateHover) w.deactivateHover();
+            });
+
+            isHovered = true;
+            wrapper.classList.add('active');
+        }
+
+        function deactivate() {
+            if(!isHovered) return;
+            isHovered = false;
+            wrapper.classList.remove('active');
+        }
+
+        // Expose deactivate globally for this wrapper
+        wrapper.deactivateHover = deactivate;
+
+        // Desktop
+        wrapper.addEventListener('mouseenter', activate);
+        wrapper.addEventListener('mouseleave', deactivate);
+
+        // Mobile Tap Logic
+        let tapped = false;
+        wrapper.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                if (!tapped) {
+                    e.preventDefault();
+                    activate();
+                    tapped = true;
+                    // Reset if tapped outside
+                    const clickOutside = (evt) => {
+                        if (!wrapper.contains(evt.target)) {
+                            deactivate();
+                            tapped = false;
+                            document.removeEventListener('click', clickOutside);
+                        }
+                    };
+                    setTimeout(() => document.addEventListener('click', clickOutside), 100);
+                } else {
+                    // Second tap goes to link if not clicking buttons
+                    if(!e.target.closest('.global-panel-btn') && wrapper.tagName.toLowerCase() !== 'a') {
+                        window.location.href = link;
+                    }
+                }
+            } else {
+                // Desktop click on wrapper
+                if(!e.target.closest('.global-panel-btn') && wrapper.tagName.toLowerCase() !== 'a') {
+                    window.location.href = link;
+                }
+            }
+        });
+    });
 
 });

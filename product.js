@@ -188,8 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
             isHovered = true;
             // Jar pop
             gsap.to(jar, {
-                scale: 1.5,
-                y: -50,
+                scale: 1.12,
+                y: -20,
                 filter: 'drop-shadow(0 40px 60px rgba(0,0,0,0.5)) brightness(1.15)',
                 duration: 0.5,
                 ease: 'back.out(1.5)'

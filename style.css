@@ -671,14 +671,14 @@ ul {
     position: relative;
     z-index: 2;
     filter: drop-shadow(0 20px 30px rgba(96, 59, 23, 0.2));
-    transition: transform 0.3s ease, filter 0.3s ease;
+    /* Transition removed so GSAP can handle it */
     cursor: pointer;
 }
 
-.hero-jar-layer:hover {
-    transform: translateY(-30px) scale(1.1);
-    z-index: 10;
-    filter: drop-shadow(0 40px 50px rgba(96, 59, 23, 0.4));
+.hero-jar-layer img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .glow-effect {
@@ -1550,4 +1550,163 @@ ul {
         word-wrap: break-word;
         hyphens: auto;
     }
+}
+
+/* ==========================================================================
+   GLOBAL PRODUCT HOVER EXPERIENCE (SYSTEM A)
+   ========================================================================== */
+.global-hover-wrapper {
+    position: relative;
+    cursor: pointer;
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: z-index 0s linear 0.4s; /* delay z-index reset until fade out finishes */
+}
+
+.global-hover-wrapper.active {
+    z-index: 100;
+    transition: z-index 0s linear 0s; /* apply z-index immediately */
+}
+
+.global-hover-wrapper img {
+    position: relative;
+    z-index: 5;
+    transform-origin: bottom center;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.6s ease;
+    will-change: transform, filter;
+}
+
+.global-hover-wrapper.active img {
+    transform: scale(1.06) translateY(-12px);
+    filter: drop-shadow(0 30px 40px rgba(0,0,0,0.4)) brightness(1.1);
+}
+
+.global-hover-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 120%;
+    height: 120%;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    will-change: opacity, transform;
+}
+
+.global-hover-wrapper.active .global-hover-glow {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.global-glass-panel {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    width: 90%;
+    max-width: 260px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-radius: 20px;
+    opacity: 0;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    transform: translateX(-50%) translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: opacity, transform;
+}
+
+.global-hover-wrapper.active .global-glass-panel {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.global-panel-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.6rem;
+    color: var(--dark-brown);
+    line-height: 1.1;
+    margin-bottom: 0;
+}
+
+.global-panel-price {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--brand-orange);
+    margin-bottom: 0.2rem;
+}
+
+.global-panel-tagline {
+    font-size: 0.85rem;
+    color: var(--dark-brown);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.global-panel-btn {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease, transform 0.2s ease, opacity 0.4s ease;
+    border: none;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.global-hover-wrapper.active .global-panel-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger button entrances */
+.global-hover-wrapper.active .global-btn-primary {
+    transition-delay: 0.1s;
+}
+.global-hover-wrapper.active .global-btn-secondary {
+    transition-delay: 0.2s;
+}
+
+.global-btn-primary {
+    background: var(--brand-orange);
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.global-btn-primary:hover {
+    background: var(--dark-brown);
+}
+
+.global-btn-secondary {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--dark-brown);
+    color: var(--dark-brown);
+}
+
+.global-btn-secondary:hover {
+    background: var(--dark-brown);
+    color: #fff;
 }
