@@ -109,7 +109,11 @@ if (journeySection && journeyTrack) {
             const jar = panel.querySelector('.panel-jar');
 
             const panelTl = gsap.timeline({
-                scrollTrigger: {
+                scrollTrigger: i === 0 ? {
+                    trigger: '.flavour-journey',
+                    start: "top 60%",
+                    toggleActions: "play none none reverse",
+                } : {
                     trigger: panel,
                     containerAnimation: horizontalScroll,
                     start: "left 80%",
