@@ -15,29 +15,75 @@
     <link rel="stylesheet" href="cart.css">
     <link rel="stylesheet" href="product.css">
 </head>
-<body class="product-page" data-product-id="2" style="--theme-bg: #0A1F12; --theme-text: #FFF8CE; --theme-accent: #2E5A35; --theme-glow: rgba(46, 90, 53, 0.2);">
+<body class="product-page" data-product-id="pudina" style="--theme-bg: #0A1F12; --theme-text: #FFF8CE; --theme-accent: #2E5A35; --theme-glow: rgba(46, 90, 53, 0.2);">
     
-    <!-- Global Navigation -->
-    <nav class="navbar" style="background: transparent; border-bottom: none; position: absolute; width: 100%; z-index: 100;">
-        <div class="container flex justify-between align-center h-100">
-            <a href="index.html" class="logo">
-                <img src="./assets/logo.png" alt="NutSpice Logo" class="nav-logo" style="filter: brightness(0) invert(1) sepia(1) hue-rotate(90deg) saturate(3) opacity(0.8);">
+    <!-- Announcement Bar -->
+    <div class="announcement-bar" id="announcement-bar">
+        <div class="announcement-content">
+            <span>🔥 FREE SHIPPING ON ORDERS ABOVE ₹499</span>
+            <span>•</span>
+            <span>🌱 MADE WITH REAL INGREDIENTS</span>
+            <span>•</span>
+            <span>🚚 PAN INDIA DELIVERY</span>
+            <span>•</span>
+            <span>🥜 100% ROASTED MAKHANA</span>
+            <span>•</span>
+            <span>⭐ CREAM & ONION IS OUR BESTSELLER</span>
+            <span>•</span>
+            <span>🔥 FREE SHIPPING ON ORDERS ABOVE ₹499</span>
+            <span>•</span>
+            <span>🌱 MADE WITH REAL INGREDIENTS</span>
+            <span>•</span>
+            <span>🚚 PAN INDIA DELIVERY</span>
+            <span>•</span>
+            <span>🥜 100% ROASTED MAKHANA</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="main-nav">
+        <div class="nav-container">
+            <!-- Left Side: Logo -->
+            <a href="index.html" class="magnetic" style="display: flex;">
+                <img src="./assets/logo.png" alt="NutSpice Logo" class="nav-logo">
             </a>
             
-            <div class="nav-links hide-mobile">
-                <a href="shop.html" class="nav-link" style="color: var(--theme-text);">Shop</a>
-                <a href="index.html#story" class="nav-link" style="color: var(--theme-text);">Our Story</a>
-                <a href="index.html#ingredients" class="nav-link" style="color: var(--theme-text);">Ingredients</a>
+            <!-- Center: Links -->
+            <div class="nav-links">
+                <a href="shop.html" class="magnetic nav-link">Shop</a>
+                <a href="index.html#flavours" class="magnetic nav-link">Flavours</a>
+                <a href="index.html#ingredients" class="magnetic nav-link">Ingredients</a>
+                <a href="index.html#story" class="magnetic nav-link">Our Story</a>
             </div>
             
-            <div class="nav-actions flex align-center" style="gap: 1.5rem;">
-                <button class="nav-link magnetic cart-global-btn" id="cart-btn" style="color: var(--theme-text);">
-                    <i class="ph ph-shopping-bag" style="font-size: 1.5rem;"></i>
-                    <span id="cart-count" class="absolute bg-brand-orange text-white border-radius-50 flex-center" style="width: 20px; height: 20px; font-size: 0.7rem; top: -5px; right: -10px;">0</span>
+            <!-- Right Side: Actions -->
+            <div class="nav-actions">
+                <button class="nav-action-icon magnetic">
+                    <i class="ph ph-magnifying-glass"></i>
+                </button>
+                <button class="nav-action-icon magnetic cart-global-btn" id="cart-btn">
+                    <i class="ph ph-shopping-bag"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </button>
+                <a href="shop.html" class="nav-cta magnetic">Shop Now &rarr;</a>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </button>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Overlay Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <a href="shop.html" class="mobile-nav-link">Shop</a>
+        <a href="index.html#flavours" class="mobile-nav-link">Flavours</a>
+        <a href="index.html#ingredients" class="mobile-nav-link">Ingredients</a>
+        <a href="index.html#story" class="mobile-nav-link">Our Story</a>
+        <a href="shop.html" class="nav-cta mt-4" style="font-size: 1.2rem; padding: 1rem 3rem;">Shop Now &rarr;</a>
+    </div>
 
     <!-- Sticky Action Bar -->
     <div class="sticky-bar">

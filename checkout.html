@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="cart.css">
     <style>
         body { background: #FAF7F0; }
-        .checkout-grid { display: grid; grid-template-columns: 1fr 400px; gap: 4rem; max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
+        .checkout-grid { display: grid; grid-template-columns: 1fr 400px; gap: 4rem; max-width: 1200px; margin: 10rem auto 4rem auto; padding: 0 2rem; }
         @media (max-width: 900px) { .checkout-grid { grid-template-columns: 1fr; } }
         
         .form-group { margin-bottom: 1.5rem; }
@@ -27,7 +27,7 @@
         .form-input { width: 100%; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: var(--font-body); background: #fff; transition: border 0.3s; }
         .form-input:focus { outline: none; border-color: var(--brand-orange); }
         
-        .checkout-summary { background: #fff; border: 1px solid var(--border-color); border-radius: 24px; padding: 2rem; position: sticky; top: 2rem; }
+        .checkout-summary { background: #fff; border: 1px solid var(--border-color); border-radius: 24px; padding: 2rem; position: sticky; top: 120px; }
         .summary-item { display: flex; gap: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
         .summary-img { width: 60px; height: 60px; object-fit: contain; }
         
@@ -37,41 +37,75 @@
 </head>
 <body class="font-body text-choc-brown">
 
-    <nav class="navbar glass-nav" style="position: relative;">
-        <div class="container nav-container">
-            <a href="index.html" class="nav-brand magnetic">
-                <img src="./assets/logo.png" alt="NutSpice" class="nav-logo">
+    <!-- Announcement Bar -->
+    <div class="announcement-bar" id="announcement-bar">
+        <div class="announcement-content">
+            <span>🔥 FREE SHIPPING ON ORDERS ABOVE ₹499</span>
+            <span>•</span>
+            <span>🌱 MADE WITH REAL INGREDIENTS</span>
+            <span>•</span>
+            <span>🚚 PAN INDIA DELIVERY</span>
+            <span>•</span>
+            <span>🥜 100% ROASTED MAKHANA</span>
+            <span>•</span>
+            <span>⭐ CREAM & ONION IS OUR BESTSELLER</span>
+            <span>•</span>
+            <span>🔥 FREE SHIPPING ON ORDERS ABOVE ₹499</span>
+            <span>•</span>
+            <span>🌱 MADE WITH REAL INGREDIENTS</span>
+            <span>•</span>
+            <span>🚚 PAN INDIA DELIVERY</span>
+            <span>•</span>
+            <span>🥜 100% ROASTED MAKHANA</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="main-nav">
+        <div class="nav-container">
+            <!-- Left Side: Logo -->
+            <a href="index.html" class="magnetic" style="display: flex;">
+                <img src="./assets/logo.png" alt="NutSpice Logo" class="nav-logo">
             </a>
+            
+            <!-- Center: Links -->
             <div class="nav-links">
-                <a href="index.html#flavours" class="magnetic nav-link">Collection</a>
-                <a href="index.html#story" class="magnetic nav-link">Our Story</a>
+                <a href="shop.html" class="magnetic nav-link">Shop</a>
+                <a href="index.html#flavours" class="magnetic nav-link">Flavours</a>
                 <a href="index.html#ingredients" class="magnetic nav-link">Ingredients</a>
-                <a href="shop.html#comparison" class="magnetic nav-link">Compare</a>
+                <a href="index.html#story" class="magnetic nav-link">Our Story</a>
             </div>
-            <div class="nav-actions flex align-center" style="gap: 1.5rem;">
-                <button class="nav-link magnetic border-none bg-transparent cursor-pointer relative cart-global-btn" id="cart-btn" style="color: var(--dark-brown);">
-                    <i class="ph ph-shopping-bag" style="font-size: 1.5rem;"></i>
-                    <span id="cart-count" class="absolute bg-brand-orange text-white border-radius-50 flex-center" style="width: 20px; height: 20px; font-size: 0.7rem; top: -5px; right: -10px;">0</span>
+            
+            <!-- Right Side: Actions -->
+            <div class="nav-actions">
+                <button class="nav-action-icon magnetic">
+                    <i class="ph ph-magnifying-glass"></i>
                 </button>
-                <a href="shop.html" class="btn btn-primary magnetic hide-mobile" style="padding: 0.75rem 1.5rem; font-size: 0.8rem;">Shop Now</a>
+                <button class="nav-action-icon magnetic cart-global-btn" id="cart-btn">
+                    <i class="ph ph-shopping-bag"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </button>
+                <a href="shop.html" class="nav-cta magnetic">Shop Now &rarr;</a>
+                
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                    <span></span>
                     <span></span>
                     <span></span>
                 </button>
             </div>
         </div>
     </nav>
-    
+
     <!-- Mobile Overlay Menu -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-        <div class="mobile-menu-content">
-            <a href="index.html#flavours" class="mobile-nav-link">Collection</a>
-            <a href="index.html#story" class="mobile-nav-link">Our Story</a>
-            <a href="index.html#ingredients" class="mobile-nav-link">Ingredients</a>
-            <a href="shop.html#comparison" class="mobile-nav-link">Compare</a>
-            <a href="shop.html" class="btn btn-primary mt-4 w-100">Shop Now</a>
-        </div>
+        <a href="shop.html" class="mobile-nav-link">Shop</a>
+        <a href="index.html#flavours" class="mobile-nav-link">Flavours</a>
+        <a href="index.html#ingredients" class="mobile-nav-link">Ingredients</a>
+        <a href="index.html#story" class="mobile-nav-link">Our Story</a>
+        <a href="shop.html" class="nav-cta mt-4" style="font-size: 1.2rem; padding: 1rem 3rem;">Shop Now &rarr;</a>
     </div>
+    
+
 
     <main class="checkout-grid">
         <div class="checkout-form">
@@ -149,7 +183,7 @@
         } else {
             container.innerHTML = cart.map(item => `
                 <div class="summary-item">
-                    <img src="${item.img}" class="summary-img">
+                    <img src="${item.img || item.image || ''}" class="summary-img">
                     <div style="flex: 1;">
                         <h4 class="font-display text-dark-brown" style="font-size: 1rem;">${item.name}</h4>
                         <div class="text-sm text-choc-brown">Qty: ${item.qty}</div>
@@ -162,14 +196,46 @@
             totalEl.innerText = '₹' + total;
         }
 
+        // Add a beautiful modal to DOM
+        const modalHtml = `
+        <div id="success-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 9999; justify-content: center; align-items: center;">
+            <div style="background: #fff; padding: 3rem; border-radius: 24px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+                <i class="ph-fill ph-check-circle text-brand-orange" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                <h2 class="font-display text-dark-brown" style="font-size: 2rem; margin-bottom: 0.5rem;">Order Successful!</h2>
+                <p class="text-choc-brown mb-2">Thank you for choosing NutSpice. Your premium roasted makhana is on its way.</p>
+                <button class="btn btn-primary" onclick="window.location.href='index.html'" style="width: 100%;">Return Home</button>
+            </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
         function processOrder() {
             if(cart.length === 0) {
                 alert("Your cart is empty.");
                 return window.location.href = 'shop.html';
             }
-            alert("Order placed successfully! Redirecting to shop...");
+            
+            // Basic Front-End Form Validation
+            const inputs = document.querySelectorAll('.checkout-form .form-input');
+            let isValid = true;
+            inputs.forEach(input => {
+                if(input.value.trim() === '') {
+                    isValid = false;
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = 'var(--border-color)';
+                }
+            });
+
+            if(!isValid) {
+                alert("Please fill out all required fields.");
+                return;
+            }
+
+            // Show Success Modal
+            document.getElementById('success-modal').style.display = 'flex';
+            
+            // Clear Cart
             localStorage.removeItem('nutspice_cart');
-            window.location.href = 'shop.html';
         }
 
         // Payment box toggles

@@ -158,6 +158,14 @@ ul {
     flex-direction: column;
 }
 
+.flex-1 {
+    flex: 1;
+}
+
+.mt-auto {
+    margin-top: auto;
+}
+
 .flex-center {
     display: flex;
     justify-content: center;
@@ -515,45 +523,160 @@ ul {
     background: var(--brand-orange);
 }
 
-/* Navigation */
-.navbar {
+/* =========================================
+   ANNOUNCEMENT BAR
+   ========================================= */
+.announcement-bar {
     position: relative;
-    top: 0;
-    left: 0;
     width: 100%;
-    padding: 1.5rem 0;
-    z-index: 1000;
-    border-bottom: 1px solid var(--border-color);
+    height: 40px;
+    background: #E8AF30; /* Warm Gold */
+    color: var(--dark-brown);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 1001;
 }
 
-.glass-nav {
-    background: rgba(255, 248, 206, 0.8);
-    backdrop-filter: blur(15px);
+.announcement-content {
+    display: inline-flex;
+    gap: 3rem;
+    padding-left: 100%;
+    animation: marquee 25s linear infinite;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.announcement-bar:hover .announcement-content {
+    animation-play-state: paused;
+}
+
+@keyframes marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
+
+/* =========================================
+   FLOATING NAVBAR
+   ========================================= */
+.navbar {
+    position: fixed;
+    top: 60px; /* Below announcement bar (40px) + 20px space */
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content; /* Make it a small pill */
+    max-width: 90%;
+    padding: 0.8rem 1.5rem;
+    z-index: 1000;
+    border-radius: 999px;
+    background: rgba(255, 248, 206, 0.85); /* Semi-transparent warm background */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(96, 59, 23, 0.08);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                max-width 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                padding 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                top 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, max-width, top, padding;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar.nav-scrolled {
+    transform: translate(-50%, -150%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.nav-logo {
+    height: 40px;
+    transition: height 0.4s ease;
+    will-change: height;
+}
+
+.nav-scrolled .nav-logo {
+    height: 30px;
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    position: relative;
+    gap: 3rem; /* Space between logo and actions */
 }
 
-.nav-logo {
-    height: 40px;
-}
-
+/* Hide the center links completely for the small pill design */
 .nav-links {
+    display: none;
+}
+
+/* =========================================
+   HOME NAVBAR OVERRIDES
+   ========================================= */
+.home-navbar {
+    width: 90%;
+    max-width: 1300px;
+    padding: 1rem 2rem;
+    justify-content: space-between;
+}
+
+.home-navbar.nav-scrolled {
+    transform: translateX(-50%);
+    opacity: 1;
+    pointer-events: auto;
+    top: 20px;
+    padding: 0.6rem 2rem;
+    width: 90%;
+    max-width: 950px; /* Shrinks the empty space by bringing sides closer */
+    background: rgba(255, 248, 206, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 15px 40px rgba(96, 59, 23, 0.12);
+}
+
+.home-navbar .nav-logo {
+    height: 45px;
+}
+
+.home-navbar.nav-scrolled .nav-logo {
+    height: 35px;
+}
+
+.home-navbar .nav-container {
+    gap: 0;
+}
+
+.home-navbar .nav-links {
     display: flex;
-    gap: 3rem;
+    gap: 2.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .nav-link {
-    font-weight: 500;
+    font-weight: 600;
     color: var(--dark-brown);
     text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
     position: relative;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
+    padding: 0.5rem 0;
 }
 
 .nav-link::after {
@@ -561,10 +684,11 @@ ul {
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -4px;
-    left: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: var(--brand-orange);
-    transition: width 0.3s ease;
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .nav-link:hover {
@@ -574,6 +698,144 @@ ul {
 .nav-link:hover::after,
 .nav-link.active::after {
     width: 100%;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-action-icon {
+    color: var(--dark-brown);
+    transition: transform 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-action-icon:hover {
+    color: var(--brand-orange);
+    transform: translateY(-2px);
+}
+
+.nav-cta {
+    background: var(--brand-orange);
+    color: #FFF;
+    font-weight: 700;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 4px 15px rgba(216, 80, 53, 0.3);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(216, 80, 53, 0.5);
+    background: var(--dark-brown);
+}
+
+/* =========================================
+   MOBILE MENU
+   ========================================= */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-primary);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mobile-nav-link {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--dark-brown);
+    text-transform: uppercase;
+    text-decoration: none;
+    margin: 1rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+    color: var(--brand-orange);
+}
+
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.mobile-menu-btn span {
+    width: 100%;
+    height: 2px;
+    background: var(--dark-brown);
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+}
+
+.mobile-menu-btn.open span:first-child {
+    transform: rotate(45deg);
+}
+
+.mobile-menu-btn.open span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.mobile-menu-btn.open span:last-child {
+    transform: rotate(-45deg);
+}
+
+@media (max-width: 992px) {
+    .nav-links, .nav-cta {
+        display: none;
+    }
+    .mobile-menu-btn {
+        display: flex;
+    }
+    .navbar {
+        width: 95%;
+        padding: 1rem 1.5rem;
+    }
+    .announcement-content {
+        gap: 2rem;
+    }
 }
 
 .nav-link.active {
@@ -1709,4 +1971,204 @@ ul {
 .global-btn-secondary:hover {
     background: var(--dark-brown);
     color: #fff;
+}
+
+/* ==========================================================================
+   COLLECTION CARDS (NEW UI)
+   ========================================================================== */
+.collection-cards {
+    padding: 2rem 0 6rem 0;
+    background: var(--bg-primary);
+}
+
+.product-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(96, 59, 23, 0.05);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(96, 59, 23, 0.1);
+}
+
+.card-image-wrapper {
+    height: 350px; /* Increased size by 25% */
+    margin-bottom: 2rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Adjust the link specifically inside the card to fill the image wrapper */
+.product-card a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-card a img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover a img {
+    transform: scale(1.08);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-category {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+.card-desc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.btn-card-add {
+    background: #FBF6EE;
+    color: var(--dark-brown);
+    font-weight: 700;
+    padding: 0.8rem;
+    border-radius: 50px;
+    border: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-card-add:hover {
+    background: var(--dark-brown);
+    color: #FFF;
+}
+
+.btn-card-buy {
+    background: var(--brand-orange);
+    color: #FFF;
+    font-weight: 700;
+    padding: 0.8rem;
+    border-radius: 50px;
+    border: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-card-buy:hover {
+    background: var(--dark-brown);
+}
+
+/* =========================================
+   RESPONSIVE NAVBAR & MOBILE MENU
+   ========================================= */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1005;
+}
+
+.mobile-menu-btn span {
+    width: 100%;
+    height: 2px;
+    background-color: var(--dark-brown);
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn.open span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.mobile-menu-btn.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.open span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-primary);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav-link {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--dark-brown);
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+    color: var(--brand-orange);
+}
+
+@media (max-width: 900px) {
+    .nav-links, .nav-cta {
+        display: none;
+    }
+    .mobile-menu-btn {
+        display: flex;
+    }
+    .navbar {
+        width: 95%;
+    }
+    .announcement-content {
+        font-size: 0.75rem;
+    }
 }

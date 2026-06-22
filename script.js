@@ -2,24 +2,6 @@
 // NUTSPICE - LUXURY GSAP ANIMATIONS & LOGIC
 // ==========================================
 
-// 1. Initialize Lenis Smooth Scrolling
-const lenis = new Lenis({
-    duration: 0.8,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    mouseMultiplier: 1.5,
-    smoothTouch: false,
-    touchMultiplier: 2,
-    infinite: false,
-});
-
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,6 +23,8 @@ if (mobileBtn && mobileMenu) {
         });
     });
 }
+
+// 1.6 Navbar Scroll handled globally in cart.js
 
 // 2. Loading Screen & Hero Initial Animations
 window.addEventListener('load', () => {
@@ -91,92 +75,7 @@ if (particlesContainer) {
     }
 }
 
-// 6. Interactive Flavour Showcase
-const flavourItems = document.querySelectorAll('.flavour-item');
-const fsBg = document.querySelector('.fs-bg');
-const fsImg = document.getElementById('fs-active-img');
-
-if (flavourItems.length > 0) {
-    let currentFlavourId = 1;
-    const urlMap = {
-        1: 'product-peri-peri.html',
-        2: 'product-pudina.html',
-        3: 'product-cream-onion.html',
-        4: 'product-cheesy.html'
-    };
-    
-    if (fsImg) {
-        fsImg.style.cursor = 'pointer';
-        fsImg.addEventListener('click', () => {
-            if (urlMap[currentFlavourId]) {
-                window.location.href = urlMap[currentFlavourId];
-            }
-        });
-    }
-
-    const updateShowcaseColors = (activeItem) => {
-        const newBg = activeItem.getAttribute('data-bg');
-        const activeText = activeItem.getAttribute('data-text');
-        const isLightBg = newBg === '#FFB347'; // Cheesy Delight
-
-        const headingColor = isLightBg ? 'var(--dark-brown)' : '#FFF8CE';
-        const pColor = isLightBg ? 'var(--choc-brown)' : 'rgba(255, 255, 255, 0.7)';
-
-        // Animate BG
-        gsap.to(fsBg, { backgroundColor: newBg, duration: 0.8, ease: "power2.inOut" });
-
-        // Animate all text to base readable color
-        gsap.to('.fs-content h2, .flavour-item h3', { color: headingColor, duration: 0.4 });
-        gsap.to('.fs-content > p, .flavour-item p', { color: pColor, duration: 0.4 });
-
-        // Highlight active item heading
-        gsap.to(activeItem.querySelector('h3'), { color: activeText, duration: 0.4 });
-    };
-
-    // Init BG
-    updateShowcaseColors(flavourItems[0]);
-
-    flavourItems.forEach(item => {
-        // Support touch, click, and hover for mobile friendliness
-        ['mouseenter', 'click', 'touchstart'].forEach(eventType => {
-            item.addEventListener(eventType, function (e) {
-                if (eventType === 'touchstart') e.preventDefault(); // prevent double firing
-
-                if (this.classList.contains('active')) return;
-
-                // Remove active from all
-                flavourItems.forEach(i => i.classList.remove('active'));
-
-                // Add active to current
-                this.classList.add('active');
-
-                updateShowcaseColors(this);
-
-                const newImg = this.getAttribute('data-img');
-                const idAttr = this.getAttribute('data-id');
-                if (idAttr) currentFlavourId = parseInt(idAttr);
-
-                // Image swap with scale/rotate bounce
-                gsap.to(fsImg, {
-                    scale: 0.8,
-                    opacity: 0,
-                    rotation: -10,
-                    duration: 0.3,
-                    onComplete: () => {
-                        fsImg.src = newImg;
-                        gsap.to(fsImg, {
-                            scale: 1,
-                            opacity: 1,
-                            rotation: 0,
-                            duration: 0.6,
-                            ease: "back.out(1.5)"
-                        });
-                    }
-                }); // end gsap.to
-            }); // end addEventListener
-        }); // end eventType.forEach
-    }); // end flavourItems.forEach
-} // end if(flavourItems.length > 0)
+// 6. Interactive Flavour Showcase removed - Replaced by New Grid UI
 
 // ==========================================
 // 6B. FLAVOUR JOURNEY — Horizontal Scroll

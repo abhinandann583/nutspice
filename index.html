@@ -35,27 +35,58 @@
         </div>
     </div>
 
+    <!-- Announcement Bar -->
+    <div class="announcement-bar" id="announcement-bar">
+        <div class="announcement-content">
+            <span>🔥 FREE SHIPPING ON ORDERS ABOVE ₹499</span>
+            <span>•</span>
+            <span>🌱 MADE WITH REAL INGREDIENTS</span>
+            <span>•</span>
+            <span>🚚 PAN INDIA DELIVERY</span>
+            <span>•</span>
+            <span>🥜 100% ROASTED MAKHANA</span>
+            <span>•</span>
+            <span>⭐ CREAM & ONION IS OUR BESTSELLER</span>
+            <span>•</span>
+            <span>🔥 FREE SHIPPING ON ORDERS ABOVE ₹499</span>
+            <span>•</span>
+            <span>🌱 MADE WITH REAL INGREDIENTS</span>
+            <span>•</span>
+            <span>🚚 PAN INDIA DELIVERY</span>
+            <span>•</span>
+            <span>🥜 100% ROASTED MAKHANA</span>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="navbar glass-nav">
-        <div class="container nav-container">
-            <a href="#home" class="nav-brand magnetic">
+    <nav class="navbar home-navbar" id="main-nav">
+        <div class="nav-container">
+            <!-- Left Side: Logo -->
+            <a href="#home" class="magnetic" style="display: flex;">
                 <img src="./assets/logo.png" alt="NutSpice" class="nav-logo">
             </a>
+            
+            <!-- Center: Links -->
             <div class="nav-links">
-                <a href="index.html#flavours" class="magnetic nav-link">Collection</a>
-                <a href="index.html#story" class="magnetic nav-link">Our Story</a>
+                <a href="shop.html" class="magnetic nav-link">Shop</a>
+                <a href="index.html#flavours" class="magnetic nav-link">Flavours</a>
                 <a href="index.html#ingredients" class="magnetic nav-link">Ingredients</a>
-                <a href="shop.html#comparison" class="magnetic nav-link">Compare</a>
+                <a href="index.html#story" class="magnetic nav-link">Our Story</a>
             </div>
-            <div class="nav-actions flex align-center" style="gap: 1.5rem;">
-                <button class="nav-link magnetic cart-global-btn" id="cart-btn" style="color: var(--dark-brown);">
-                    <i class="ph ph-shopping-bag" style="font-size: 1.5rem;"></i>
-                    <span id="cart-count" class="absolute bg-brand-orange text-white border-radius-50 flex-center"
-                        style="width: 20px; height: 20px; font-size: 0.7rem; top: -5px; right: -10px;">0</span>
+            
+            <!-- Right Side: Actions -->
+            <div class="nav-actions">
+                <button class="nav-action-icon magnetic">
+                    <i class="ph ph-magnifying-glass"></i>
                 </button>
-                <a href="shop.html" class="btn btn-primary magnetic hide-mobile"
-                    style="padding: 0.75rem 1.5rem; font-size: 0.8rem;">Shop Now</a>
+                <button class="nav-action-icon magnetic cart-global-btn" id="cart-btn">
+                    <i class="ph ph-shopping-bag"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </button>
+                <a href="shop.html" class="nav-cta magnetic">Shop Now &rarr;</a>
+                
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                    <span></span>
                     <span></span>
                     <span></span>
                 </button>
@@ -65,13 +96,11 @@
 
     <!-- Mobile Overlay Menu -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-        <div class="mobile-menu-content">
-            <a href="index.html#flavours" class="mobile-nav-link">Collection</a>
-            <a href="index.html#story" class="mobile-nav-link">Our Story</a>
-            <a href="index.html#ingredients" class="mobile-nav-link">Ingredients</a>
-            <a href="shop.html#comparison" class="mobile-nav-link">Compare</a>
-            <a href="shop.html" class="btn btn-primary mt-4 w-100">Shop Now</a>
-        </div>
+        <a href="shop.html" class="mobile-nav-link">Shop</a>
+        <a href="index.html#flavours" class="mobile-nav-link">Flavours</a>
+        <a href="index.html#ingredients" class="mobile-nav-link">Ingredients</a>
+        <a href="index.html#story" class="mobile-nav-link">Our Story</a>
+        <a href="shop.html" class="nav-cta mt-4" style="font-size: 1.2rem; padding: 1rem 3rem;">Shop Now &rarr;</a>
     </div>
 
     <main id="smooth-wrapper">
@@ -153,44 +182,87 @@
                 </div>
             </section>
 
-            <!-- 3. Interactive Flavour Showcase -->
-            <section class="section flavour-showcase" id="flavours">
-                <div class="fs-bg transition-bg"></div>
-                <div class="container grid-2 align-center h-100 relative z-2">
-
-                    <div class="fs-visual">
-                        <img src="./assets/peri-peri.png" id="fs-active-img" alt="Flavour" class="fs-main-img">
+            <!-- 3. The Flavour Collection -->
+            <section class="section collection-cards" id="flavours">
+                <div class="container">
+                    <div class="section-header text-center gs-fade-up mb-4">
+                        <h2 class="section-title text-dark-brown">Find Your Perfect Crunch</h2>
+                        <p class="section-desc text-choc-brown max-w-700 mx-auto mt-1" style="font-size: 1.1rem; line-height: 1.6;">Four bold personalities. One guilt-free crunch. Discover the flavour that matches your mood.</p>
                     </div>
 
-                    <div class="fs-content glass-panel p-3">
-                        <h2 class="font-display font-bold text-dark-brown mb-1" style="font-size: 2.8rem;">Select Your
-                            Obsession</h2>
-                        <p class="text-choc-brown mb-2">Hover to explore our premium collection.</p>
+                    <div class="grid-4 mt-4">
+                        <!-- Card 1 -->
+                        <div class="product-card gs-fade-up">
+                            <div class="card-image-wrapper">
+                                <a href="product-cream-onion.html">
+                                    <img src="./assets/cream-onion.png" alt="Cream & Onion Makhana">
+                                </a>
+                            </div>
+                            <div class="card-content mt-2">
+                                <span class="card-category text-brand-orange">COMFORT CLASSIC</span>
+                                <h3 class="card-title text-dark-brown">Cream & Onion</h3>
+                                <p class="card-desc text-choc-brown">The perfect balance of rich sour cream and zesty onion for a smooth, savory crunch.</p>
+                                <div class="flex gap-1 w-100 mt-auto">
+                                    <a href="checkout.html" class="btn-card-buy flex-1 magnetic">Buy Now</a>
+                                    <button class="btn-card-add flex-1 magnetic" onclick="window.globalCart.addItem({id: 'cream', name: 'Cream & Onion Makhana', price: 149, img: './assets/cream-onion.png'}, this)">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div class="flavour-list">
-                            <div class="flavour-item active magnetic" data-id="1" data-img="./assets/peri-peri.png"
-                                data-bg="#A1281A" data-accent="#FFD881" data-text="#FFD881">
-                                <h3>Peri Peri Fire</h3>
-                                <p>A spicy, tangy explosion of global peppers.</p>
+                        <!-- Card 2 -->
+                        <div class="product-card gs-fade-up" data-delay="0.1">
+                            <div class="card-image-wrapper">
+                                <a href="product-peri-peri.html">
+                                    <img src="./assets/peri-peri.png" alt="Peri Peri Makhana">
+                                </a>
                             </div>
-                            <div class="flavour-item magnetic" data-id="2" data-img="./assets/pudina-burst.png"
-                                data-bg="#2E5A35" data-accent="#FFF8CE" data-text="#FFF8CE">
-                                <h3>Pudina Burst</h3>
-                                <p>Refreshing minty perfection with a hint of zest.</p>
+                            <div class="card-content mt-2">
+                                <span class="card-category text-brand-orange">BOLD & FIERY</span>
+                                <h3 class="card-title text-dark-brown">Peri Peri</h3>
+                                <p class="card-desc text-choc-brown">A fiery kick of African bird's eye chili perfectly balanced with a hint of tanginess.</p>
+                                <div class="flex gap-1 w-100 mt-auto">
+                                    <a href="checkout.html" class="btn-card-buy flex-1 magnetic">Buy Now</a>
+                                    <button class="btn-card-add flex-1 magnetic" onclick="window.globalCart.addItem({id: 'peri', name: 'Peri Peri Fire Makhana', price: 149, img: './assets/peri-peri.png'}, this)">Add to Cart</button>
+                                </div>
                             </div>
-                            <div class="flavour-item magnetic" data-id="3" data-img="./assets/cream-onion.png"
-                                data-bg="#8E7AE6" data-accent="#FFFFFF" data-text="#FFFFFF">
-                                <h3>Cream & Onion</h3>
-                                <p>Smooth, savory, and irresistibly classic.</p>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="product-card gs-fade-up" data-delay="0.2">
+                            <div class="card-image-wrapper">
+                                <a href="product-pudina.html">
+                                    <img src="./assets/pudina-burst.png" alt="Pudina Burst Makhana">
+                                </a>
                             </div>
-                            <div class="flavour-item magnetic" data-id="4" data-img="./assets/cheesy.png"
-                                data-bg="#FFB347" data-accent="#FFF8CE" data-text="#603B17">
-                                <h3>Cheesy Delight</h3>
-                                <p>Rich, indulgent cheese blend for the ultimate craving.</p>
+                            <div class="card-content mt-2">
+                                <span class="card-category text-brand-orange">COOL & REFRESHING</span>
+                                <h3 class="card-title text-dark-brown">Pudina Burst</h3>
+                                <p class="card-desc text-choc-brown">Fresh mint leaves blended with classic Indian spices for a refreshing zing.</p>
+                                <div class="flex gap-1 w-100 mt-auto">
+                                    <a href="checkout.html" class="btn-card-buy flex-1 magnetic">Buy Now</a>
+                                    <button class="btn-card-add flex-1 magnetic" onclick="window.globalCart.addItem({id: 'pudina', name: 'Pudina Burst Makhana', price: 149, img: './assets/pudina-burst.png'}, this)">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="product-card gs-fade-up" data-delay="0.3">
+                            <div class="card-image-wrapper">
+                                <a href="product-cheesy.html">
+                                    <img src="./assets/cheesy.png" alt="Cheesy Delight Makhana">
+                                </a>
+                            </div>
+                            <div class="card-content mt-2">
+                                <span class="card-category text-brand-orange">RICH & INDULGENT</span>
+                                <h3 class="card-title text-dark-brown">Cheesy Delight</h3>
+                                <p class="card-desc text-choc-brown">Generously coated with premium cheddar cheese for the ultimate guilt-free indulgence.</p>
+                                <div class="flex gap-1 w-100 mt-auto">
+                                    <a href="checkout.html" class="btn-card-buy flex-1 magnetic">Buy Now</a>
+                                    <button class="btn-card-add flex-1 magnetic" onclick="window.globalCart.addItem({id: 'cheesy', name: 'Cheesy Delight Makhana', price: 149, img: './assets/cheesy.png'}, this)">Add to Cart</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
 
@@ -532,7 +604,7 @@
                                 class="ph ph-phone text-brand-orange"></i> +91 98765 43210</div>
                     </div>
                     <div class="contact-form glass-panel p-4 gs-fade-up">
-                        <form>
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)">
                             <div class="form-group mb-2">
                                 <input type="text" placeholder="Your Name"
                                     class="w-100 p-2 bg-transparent border-brown border-radius-8 text-dark-brown font-body outline-none"
@@ -551,6 +623,23 @@
                             <button type="submit" class="btn btn-primary magnetic w-100 border-none">Send
                                 Message</button>
                         </form>
+                        <script>
+                            function handleContactSubmit(e) {
+                                e.preventDefault();
+                                // Create toast dynamically if not exists
+                                let toast = document.getElementById('cart-toast');
+                                if(!toast) {
+                                    toast = document.createElement('div');
+                                    toast.id = 'cart-toast';
+                                    toast.className = 'cart-toast';
+                                    document.body.appendChild(toast);
+                                }
+                                toast.innerHTML = '<i class="ph-fill ph-check-circle"></i> <span>Message Sent Successfully!</span>';
+                                toast.classList.add('show');
+                                setTimeout(() => toast.classList.remove('show'), 3000);
+                                e.target.reset();
+                            }
+                        </script>
                     </div>
                 </div>
             </section>
@@ -579,16 +668,30 @@
                         <div class="f-socials">
                             <h4 class="text-dark-brown font-display text-lg mb-1">Follow Us</h4>
                             <div class="social-icons flex gap-1">
-                                <a href="#"
+                                <a href="javascript:void(0)" onclick="showComingSoonToast()"
                                     class="w-40 h-40 flex-center border-brown border-radius-50 text-dark-brown hover-bg-brand hover-text-white transition magnetic"><i
                                         class="ph ph-instagram-logo"></i></a>
-                                <a href="#"
+                                <a href="javascript:void(0)" onclick="showComingSoonToast()"
                                     class="w-40 h-40 flex-center border-brown border-radius-50 text-dark-brown hover-bg-brand hover-text-white transition magnetic"><i
                                         class="ph ph-twitter-logo"></i></a>
-                                <a href="#"
+                                <a href="javascript:void(0)" onclick="showComingSoonToast()"
                                     class="w-40 h-40 flex-center border-brown border-radius-50 text-dark-brown hover-bg-brand hover-text-white transition magnetic"><i
                                         class="ph ph-facebook-logo"></i></a>
                             </div>
+                            <script>
+                                function showComingSoonToast() {
+                                    let toast = document.getElementById('cart-toast');
+                                    if(!toast) {
+                                        toast = document.createElement('div');
+                                        toast.id = 'cart-toast';
+                                        toast.className = 'cart-toast';
+                                        document.body.appendChild(toast);
+                                    }
+                                    toast.innerHTML = '<i class="ph-fill ph-info"></i> <span>Coming Soon!</span>';
+                                    toast.classList.add('show');
+                                    setTimeout(() => toast.classList.remove('show'), 3000);
+                                }
+                            </script>
                         </div>
                     </div>
                     <div class="footer-bottom border-t-brown pt-2 text-center text-choc-brown text-sm">
@@ -603,7 +706,6 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
     <script src="script.js"></script>
     <script src="cart.js"></script>
 </body>

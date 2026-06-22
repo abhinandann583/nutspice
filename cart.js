@@ -9,10 +9,31 @@ class GlobalCart {
         this.isOpen = false;
         this.isAnimating = false;
         this.mobileBreakpoint = 768;
-        
+
         this.initDOM();
         this.bindEvents();
+        this.initGlobalScroll();
         this.render();
+    }
+
+    initGlobalScroll() {
+        const mainNav = document.getElementById('main-nav');
+        if (mainNav) {
+            let isScrolling = false;
+            window.addEventListener('scroll', () => {
+                if (!isScrolling) {
+                    window.requestAnimationFrame(() => {
+                        if (window.scrollY > 50) {
+                            mainNav.classList.add('nav-scrolled');
+                        } else {
+                            mainNav.classList.remove('nav-scrolled');
+                        }
+                        isScrolling = false;
+                    });
+                    isScrolling = true;
+                }
+            }, { passive: true });
+        }
     }
 
     initDOM() {
@@ -50,7 +71,7 @@ class GlobalCart {
         this.panel = document.getElementById('global-cart');
         this.itemsContainer = document.getElementById('global-cart-items');
         this.totalEl = document.getElementById('global-cart-total');
-        
+
         // Create Toast
         if (!document.getElementById('cart-toast')) {
             const toast = document.createElement('div');
@@ -155,13 +176,13 @@ class GlobalCart {
             } else {
                 tooltip.classList.remove('hidden-always');
                 tooltip.querySelector('.preview-total').innerText = `₹${totalPrice}`;
-                
+
                 const list = tooltip.querySelector('.preview-items-list');
                 if (list) {
                     const previewItems = this.cart.slice(0, 2); // Show max 2 items in preview
                     let html = previewItems.map(item => `
                         <div class="preview-item">
-                            <img src="${item.image}" alt="${item.name}" class="preview-item-img">
+                            <img src="${item.img || item.image || ''}" alt="${item.name}" class="preview-item-img">
                             <div class="preview-item-info">
                                 <div class="preview-item-name">${item.name}</div>
                                 <div class="preview-item-qty">Qty: ${item.qty}</div>
@@ -191,19 +212,19 @@ class GlobalCart {
             document.getElementById('global-cart-btns').style.display = 'flex';
             this.itemsContainer.innerHTML = this.cart.map(item => `
                 <div class="cart-item">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <img src="${item.img || item.image || ''}" alt="${item.name}" class="cart-item-img">
                     <div class="cart-item-details">
                         <h4 class="cart-item-title">${item.name}</h4>
-                        <p class="cart-item-flavor">${item.flavour}</p>
+                        ${item.flavour ? `<p class="cart-item-flavor">${item.flavour}</p>` : ''}
                         <div class="cart-item-price-qty">
                             <span class="cart-item-price">₹${item.price * item.qty}</span>
                             <div class="cart-qty-control">
-                                <button class="qty-btn" onclick="window.globalCart.updateQty(${item.id}, -1)">-</button>
+                                <button class="qty-btn" onclick="window.globalCart.updateQty('${item.id}', -1)">-</button>
                                 <span class="qty-value">${item.qty}</span>
-                                <button class="qty-btn" onclick="window.globalCart.updateQty(${item.id}, 1)">+</button>
+                                <button class="qty-btn" onclick="window.globalCart.updateQty('${item.id}', 1)">+</button>
                             </div>
                         </div>
-                        <button class="remove-btn mt-1" onclick="window.globalCart.removeItem(${item.id})">Remove</button>
+                        <button class="remove-btn mt-1" onclick="window.globalCart.removeItem('${item.id}')">Remove</button>
                     </div>
                 </div>
             `).join('');
@@ -269,7 +290,7 @@ class GlobalCart {
             // Bottom sheet layout
             destX = window.innerWidth * 0.025; // 2.5vw
             destY = window.innerHeight - this.panel.offsetHeight; // Bottom of screen
-            
+
             gsap.to(this.panel, {
                 x: destX,
                 y: destY,
@@ -299,10 +320,10 @@ class GlobalCart {
                 }
             });
         }
-        
+
         // Stagger list items in cart
-        gsap.fromTo('.cart-item', 
-            { y: 30, opacity: 0 }, 
+        gsap.fromTo('.cart-item',
+            { y: 30, opacity: 0 },
             { y: 0, opacity: 1, stagger: 0.05, duration: 0.5, delay: 0.3, ease: "power2.out" }
         );
     }
@@ -317,7 +338,7 @@ class GlobalCart {
         // Find the active cart btn to morph back to
         const btn = document.querySelector('.cart-global-btn');
         let destX = window.innerWidth, destY = 0;
-        
+
         if (btn) {
             const rect = btn.getBoundingClientRect();
             destX = rect.left + rect.width / 2;
@@ -341,11 +362,11 @@ class GlobalCart {
                 gsap.set(this.panel, { clearProps: "all" });
             }
         });
-        
+
         // Button bounce
         if (btn) {
-            gsap.fromTo(btn, 
-                { scale: 0.8 }, 
+            gsap.fromTo(btn,
+                { scale: 0.8 },
                 { scale: 1, duration: 0.4, delay: 0.4, ease: "back.out(1.7)" }
             );
         }
@@ -356,7 +377,7 @@ class GlobalCart {
      */
     addItem(product, originElement) {
         // Safety check
-        if(!product || !product.id) return;
+        if (!product || !product.id) return;
 
         // Add logic
         const existing = this.cart.find(item => item.id === product.id);
@@ -380,10 +401,10 @@ class GlobalCart {
         // Assuming originElement is the button inside a product card
         const card = originElement.closest('.flavour-card') || originElement.closest('.product-card') || document.body;
         let originImg = card.querySelector('img');
-        
+
         // Target is the cart icon
         const targetIcon = document.querySelector('.cart-global-btn');
-        
+
         if (!originImg || !targetIcon) {
             this.showToast();
             return;
@@ -415,9 +436,9 @@ class GlobalCart {
             onComplete: () => {
                 clone.remove();
                 this.showToast();
-                
+
                 // Icon fill/pulse
-                gsap.fromTo(targetIcon, 
+                gsap.fromTo(targetIcon,
                     { scale: 1.3, color: '#D85035' },
                     { scale: 1, color: '', duration: 0.4, ease: "back.out(1.7)" }
                 );
@@ -430,7 +451,7 @@ class GlobalCart {
                 path: [
                     { x: originRect.left, y: originRect.top },
                     { x: ctrlX, y: ctrlY },
-                    { x: targetRect.left + targetRect.width/2 - 20, y: targetRect.top + targetRect.height/2 - 20 }
+                    { x: targetRect.left + targetRect.width / 2 - 20, y: targetRect.top + targetRect.height / 2 - 20 }
                 ]
             },
             width: 40,
@@ -456,20 +477,20 @@ window.addEventListener('DOMContentLoaded', () => {
         // Wait, MotionPathPlugin might not be loaded. 
         // We can fallback to simple x/y tweens if it's not.
     }
-    
+
     // We will use simple bezier-like animation without motionPath plugin to ensure it works
     // by using a container. Actually, motionPath requires an extra script.
     // Let's rewrite the flying animation slightly to avoid motionPath dependency to keep it clean.
-    
+
     window.globalCart = new GlobalCart();
 });
 
 // Polyfill the flying animation to not require MotionPathPlugin
-GlobalCart.prototype.playFlyingAnimation = function(originElement, imageSrc) {
+GlobalCart.prototype.playFlyingAnimation = function (originElement, imageSrc) {
     const card = originElement.closest('.flavour-card') || originElement.closest('.product-card') || document.body;
     let originImg = card.querySelector('img');
     const targetIcon = document.querySelector('.cart-global-btn');
-    
+
     if (!originImg || !targetIcon) {
         this.showToast();
         return;
@@ -483,7 +504,7 @@ GlobalCart.prototype.playFlyingAnimation = function(originElement, imageSrc) {
     wrapper.style.position = 'fixed';
     wrapper.style.zIndex = '9999';
     wrapper.style.pointerEvents = 'none';
-    
+
     const clone = document.createElement('img');
     clone.src = imageSrc;
     clone.className = 'cart-flying-clone';
@@ -496,13 +517,13 @@ GlobalCart.prototype.playFlyingAnimation = function(originElement, imageSrc) {
 
     // Animate X on wrapper, Y on clone to create curve
     gsap.to(wrapper, {
-        x: targetRect.left + targetRect.width/2 - 20,
+        x: targetRect.left + targetRect.width / 2 - 20,
         duration: 0.7,
         ease: "power1.inOut"
     });
-    
+
     gsap.to(clone, {
-        y: (targetRect.top - originRect.top) + targetRect.height/2 - 20,
+        y: (targetRect.top - originRect.top) + targetRect.height / 2 - 20,
         width: 40,
         height: 40,
         opacity: 0.5,
@@ -511,7 +532,7 @@ GlobalCart.prototype.playFlyingAnimation = function(originElement, imageSrc) {
         onComplete: () => {
             wrapper.remove();
             this.showToast();
-            gsap.fromTo(targetIcon, 
+            gsap.fromTo(targetIcon,
                 { scale: 1.3, color: '#D85035' },
                 { scale: 1, color: '', duration: 0.4, ease: "back.out(1.7)" }
             );

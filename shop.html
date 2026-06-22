@@ -19,10 +19,9 @@
     <link rel="stylesheet" href="cart.css">
     <link rel="stylesheet" href="shop.css">
     
-    <!-- GSAP & Lenis -->
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
 </head>
 <body class="bg-primary text-choc-brown font-body">
     
@@ -30,23 +29,58 @@
     <!-- Noise Texture Overlay -->
     <div class="noise-overlay"></div>
 
+    <!-- Announcement Bar -->
+    <div class="announcement-bar" id="announcement-bar">
+        <div class="announcement-content">
+            <span>🔥 FREE SHIPPING ON ORDERS ABOVE ₹499</span>
+            <span>•</span>
+            <span>🌱 MADE WITH REAL INGREDIENTS</span>
+            <span>•</span>
+            <span>🚚 PAN INDIA DELIVERY</span>
+            <span>•</span>
+            <span>🥜 100% ROASTED MAKHANA</span>
+            <span>•</span>
+            <span>⭐ CREAM & ONION IS OUR BESTSELLER</span>
+            <span>•</span>
+            <span>🔥 FREE SHIPPING ON ORDERS ABOVE ₹499</span>
+            <span>•</span>
+            <span>🌱 MADE WITH REAL INGREDIENTS</span>
+            <span>•</span>
+            <span>🚚 PAN INDIA DELIVERY</span>
+            <span>•</span>
+            <span>🥜 100% ROASTED MAKHANA</span>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="navbar glass-nav">
-        <div class="container nav-container">
-            <a href="index.html" class="magnetic"><img src="./assets/logo.png" alt="NutSpice Logo" class="nav-logo"></a>
+    <nav class="navbar" id="main-nav">
+        <div class="nav-container">
+            <!-- Left Side: Logo -->
+            <a href="index.html" class="magnetic" style="display: flex;">
+                <img src="./assets/logo.png" alt="NutSpice Logo" class="nav-logo">
+            </a>
+            
+            <!-- Center: Links -->
             <div class="nav-links">
-                <a href="index.html#flavours" class="magnetic nav-link">Collection</a>
-                <a href="index.html#story" class="magnetic nav-link">Our Story</a>
+                <a href="shop.html" class="magnetic nav-link">Shop</a>
+                <a href="index.html#flavours" class="magnetic nav-link">Flavours</a>
                 <a href="index.html#ingredients" class="magnetic nav-link">Ingredients</a>
-                <a href="shop.html#comparison" class="magnetic nav-link">Compare</a>
+                <a href="index.html#story" class="magnetic nav-link">Our Story</a>
             </div>
-            <div class="nav-actions flex align-center" style="gap: 1.5rem;">
-                <button class="nav-link magnetic border-none bg-transparent cursor-pointer relative cart-global-btn" id="cart-btn" style="color: var(--dark-brown);">
-                    <i class="ph ph-shopping-bag" style="font-size: 1.5rem;"></i>
-                    <span id="cart-count" class="absolute bg-brand-orange text-white border-radius-50 flex-center" style="width: 20px; height: 20px; font-size: 0.7rem; top: -5px; right: -10px;">0</span>
+            
+            <!-- Right Side: Actions -->
+            <div class="nav-actions">
+                <button class="nav-action-icon magnetic">
+                    <i class="ph ph-magnifying-glass"></i>
                 </button>
-                <a href="shop.html" class="btn btn-primary magnetic hide-mobile" style="padding: 0.75rem 1.5rem; font-size: 0.8rem;">Shop Now</a>
+                <button class="nav-action-icon magnetic cart-global-btn" id="cart-btn">
+                    <i class="ph ph-shopping-bag"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </button>
+                <a href="shop.html" class="nav-cta magnetic">Shop Now &rarr;</a>
+                
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                    <span></span>
                     <span></span>
                     <span></span>
                 </button>
@@ -56,13 +90,11 @@
 
     <!-- Mobile Overlay Menu -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-        <div class="mobile-menu-content">
-            <a href="index.html#flavours" class="mobile-nav-link">Collection</a>
-            <a href="index.html#story" class="mobile-nav-link">Our Story</a>
-            <a href="index.html#ingredients" class="mobile-nav-link">Ingredients</a>
-            <a href="shop.html#comparison" class="mobile-nav-link">Compare</a>
-            <a href="shop.html" class="btn btn-primary mt-4 w-100">Shop Now</a>
-        </div>
+        <a href="shop.html" class="mobile-nav-link">Shop</a>
+        <a href="index.html#flavours" class="mobile-nav-link">Flavours</a>
+        <a href="index.html#ingredients" class="mobile-nav-link">Ingredients</a>
+        <a href="index.html#story" class="mobile-nav-link">Our Story</a>
+        <a href="shop.html" class="nav-cta mt-4" style="font-size: 1.2rem; padding: 1rem 3rem;">Shop Now &rarr;</a>
     </div>
 
 
@@ -245,26 +277,69 @@
             </div>
         </section>
 
-        <!-- SECTION 5: BESTSELLER SPOTLIGHT -->
-        <section class="section">
+        <!-- SECTION 5: THE FAN FAVOURITE -->
+        <section class="section" style="background: var(--bg-primary);">
             <div class="container grid-2 align-center">
-                <div class="bestseller-visual text-center gs-fade-up">
-                    <a href="product-peri-peri.html" class="global-hover-wrapper" data-flavour="peri" data-name="Peri Peri Fire" data-price="₹149" data-tagline="Spicy & Bold" data-link="product-peri-peri.html" style="display: inline-block;">
-                        <img src="./assets/peri-peri.png" alt="Peri Peri Makhana" style="max-width: 80%;">
-                    </a>
+                <!-- Left: Huge Product Shot -->
+                <div class="relative flex-center" style="height: 100%; min-height: 500px;">
+                    <!-- Background Decoration -->
+                    <div class="absolute bg-premium-gold" style="width: 80%; height: 80%; border-radius: 50%; filter: blur(80px); opacity: 0.3; z-index: 1;"></div>
+                    
+                    <div class="gs-fade-up" style="position: relative; width: 70%; z-index: 2; filter: drop-shadow(0 40px 80px rgba(58,36,22,0.3));">
+                        <img src="./assets/cream-onion.png" alt="Cream & Onion Bestseller" class="w-100 object-fit-cover">
+                    </div>
+                    
+                    <!-- Floating Callouts -->
+                    <div class="absolute bg-white border-radius-50 px-3 py-2 font-bold text-dark-brown box-shadow gs-fade-up" style="top: 20%; left: 0; z-index: 3; box-shadow: 0 15px 30px rgba(0,0,0,0.1);">
+                        🔥 #1 Bestseller
+                    </div>
+                    
+                    <div class="absolute bg-white border-radius-50 px-3 py-2 font-bold text-dark-brown box-shadow gs-fade-up flex align-center gap-05" style="bottom: 20%; right: 0; z-index: 3; box-shadow: 0 15px 30px rgba(0,0,0,0.1);" data-delay="0.2">
+                        <span style="font-size: 1.2rem;">🧅</span> Real Ingredients
+                    </div>
                 </div>
-                <div class="bestseller-content gs-fade-up">
-                    <span class="inline-block mb-1 font-bold text-sm bg-brand-orange text-white" style="background: var(--brand-orange); color: #fff; padding: 0.3rem 1rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;">Recommended</span>
-                    <h2 class="font-display section-title text-dark-brown mb-1">Peri Peri Fire</h2>
-                    <p class="section-desc mb-2">A fiery blend of exotic African bird's eye chili and aromatic spices. For those who demand bold, uncompromising flavor in every crunch.</p>
-                    
-                    <ul style="list-style: none; margin-bottom: 2rem;">
-                        <li class="mb-05"><i class="ph ph-check-circle text-brand-orange mr-1"></i> Intense Flavor Profile</li>
-                        <li class="mb-05"><i class="ph ph-check-circle text-brand-orange mr-1"></i> Zero Trans Fat</li>
-                        <li class="mb-05"><i class="ph ph-check-circle text-brand-orange mr-1"></i> Perfect Evening Snack</li>
-                    </ul>
-                    
-                    <button class="btn btn-primary magnetic" onclick="cartApp.addToCart(1)">Add To Cart - ₹149</button>
+
+                <!-- Right: Content -->
+                <div class="flex-col gs-fade-up" data-delay="0.1">
+                    <h4 class="text-brand-orange font-bold uppercase tracking-wide mb-1" style="font-size: 0.9rem;">
+                        The Fan Favourite
+                    </h4>
+                    <h2 class="font-display text-dark-brown mb-2" style="font-size: 4rem; line-height: 1;">
+                        Cream & Onion
+                    </h2>
+                    <p class="text-choc-brown mb-4" style="font-size: 1.1rem; line-height: 1.6;">
+                        Our signature flavour that started it all. We took the classic sour cream and onion profile you love and elevated it with premium roasted makhana. It's rich, zesty, and dangerously addictive—without the guilt.
+                    </p>
+
+                    <div class="grid-2 gap-1 mb-4">
+                        <div class="flex align-center gap-1 text-choc-brown font-bold text-sm">
+                            <i class="ph ph-check-circle text-brand-orange" style="font-size: 1.2rem;"></i> Roasted, never fried
+                        </div>
+                        <div class="flex align-center gap-1 text-choc-brown font-bold text-sm">
+                            <i class="ph ph-check-circle text-brand-orange" style="font-size: 1.2rem;"></i> Rich in dietary fiber
+                        </div>
+                        <div class="flex align-center gap-1 text-choc-brown font-bold text-sm">
+                            <i class="ph ph-check-circle text-brand-orange" style="font-size: 1.2rem;"></i> Zero trans fat
+                        </div>
+                        <div class="flex align-center gap-1 text-choc-brown font-bold text-sm">
+                            <i class="ph ph-check-circle text-brand-orange" style="font-size: 1.2rem;"></i> Gluten-free goodness
+                        </div>
+                        <div class="flex align-center gap-1 text-choc-brown font-bold text-sm">
+                            <i class="ph ph-check-circle text-brand-orange" style="font-size: 1.2rem;"></i> No artificial colors
+                        </div>
+                        <div class="flex align-center gap-1 text-choc-brown font-bold text-sm">
+                            <i class="ph ph-check-circle text-brand-orange" style="font-size: 1.2rem;"></i> Plant-based protein
+                        </div>
+                    </div>
+
+                    <div class="flex align-center gap-2 mt-2">
+                        <button class="btn magnetic text-white" style="background: var(--dark-brown); padding: 1rem 2.5rem;" onclick="if(window.globalCart) window.globalCart.addItem({id: 'cream', name: 'Cream & Onion Makhana', price: 149, img: './assets/cream-onion.png'}, this); else cartApp.addToCart(3);">
+                            Add to Cart — ₹149
+                        </button>
+                        <p class="text-choc-brown font-bold text-sm" style="max-width: 200px; line-height: 1.4;">
+                            Includes 3 family-size packs (100g each)
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>

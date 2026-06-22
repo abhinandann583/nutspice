@@ -64,20 +64,7 @@ const cartApp = {
     }
 };
 
-// --- INITIALIZE GSAP & LENIS ---
-const lenis = new Lenis({
-    duration: 0.8,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smooth: true,
-    mouseMultiplier: 1.5,
-});
-
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
+// --- INITIALIZE GSAP ---
 gsap.registerPlugin(ScrollTrigger);
 
 window.addEventListener('load', () => {

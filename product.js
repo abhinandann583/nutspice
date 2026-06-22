@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Get current product info
     const productBody = document.querySelector('body.product-page');
     if (!productBody) return;
-    
-    const productId = parseInt(productBody.getAttribute('data-product-id') || '1');
+    const productId = productBody.getAttribute('data-product-id') || 'peri';
 
     // 2. Sticky Bar Logic
     const stickyBar = document.querySelector('.sticky-bar');
@@ -27,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnBuy = document.getElementById('sticky-buy-now');
 
     const productDataMap = {
-        1: { id: 1, name: "Peri Peri Makhana", price: 149, flavour: "Peri Peri", image: "./assets/peri-peri.png" },
-        2: { id: 2, name: "Pudina Burst", price: 149, flavour: "Pudina", image: "./assets/pudina-burst.png" },
-        3: { id: 3, name: "Cream & Onion", price: 149, flavour: "Cream & Onion", image: "./assets/cream-onion.png" },
-        4: { id: 4, name: "Cheesy Makhana", price: 149, flavour: "Cheese", image: "./assets/cheesy.png" }
+        'peri': { id: 'peri', name: "Peri Peri Makhana", price: 149, flavour: "Peri Peri", img: "./assets/peri-peri.png" },
+        'pudina': { id: 'pudina', name: "Pudina Burst Makhana", price: 149, flavour: "Pudina", img: "./assets/pudina-burst.png" },
+        'cream': { id: 'cream', name: "Cream & Onion Makhana", price: 149, flavour: "Cream & Onion", img: "./assets/cream-onion.png" },
+        'cheesy': { id: 'cheesy', name: "Cheesy Delight Makhana", price: 149, flavour: "Cheese", img: "./assets/cheesy.png" }
     };
 
     if (btnAdd) {
