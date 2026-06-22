@@ -122,10 +122,17 @@ if (journeySection && journeyTrack) {
                 }
             });
 
-            panelTl.from(badge, { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" })
-                .from(headline, { y: 80, opacity: 0, duration: 0.8, ease: "power4.out" }, "-=0.3")
-                .from(sub, { y: 40, opacity: 0, duration: 0.6, ease: "power3.out" }, "-=0.4")
-                .from(jar, { scale: 0.6, opacity: 0, rotation: -15, duration: 1, ease: "back.out(1.4)" }, "-=0.6");
+            if (i === 0) {
+                panelTl.from(badge, { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" })
+                    .from(headline, { y: 80, opacity: 0, duration: 0.8, ease: "power4.out" }, "-=0.3")
+                    .from(sub, { y: 40, opacity: 0, duration: 0.6, ease: "power3.out" }, "-=0.4")
+                    .from(jar, { opacity: 0, duration: 1, ease: "power3.out" }, "-=0.6");
+            } else {
+                panelTl.from(badge, { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" })
+                    .from(headline, { y: 80, opacity: 0, duration: 0.8, ease: "power4.out" }, "-=0.3")
+                    .from(sub, { y: 40, opacity: 0, duration: 0.6, ease: "power3.out" }, "-=0.4")
+                    .from(jar, { scale: 0.6, opacity: 0, rotation: -15, duration: 1, ease: "back.out(1.4)" }, "-=0.6");
+            }
         });
     });
 
@@ -145,10 +152,17 @@ if (journeySection && journeyTrack) {
                 }
             });
 
-            panelTl.from(badge, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" })
-                .from(headline, { y: 40, opacity: 0, duration: 0.6, ease: "power4.out" }, "-=0.2")
-                .from(sub, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" }, "-=0.3")
-                .from(jar, { scale: 0.8, opacity: 0, duration: 0.8, ease: "back.out(1.2)" }, "-=0.4");
+            if (i === 0) {
+                panelTl.from(badge, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" })
+                    .from(headline, { y: 40, opacity: 0, duration: 0.6, ease: "power4.out" }, "-=0.2")
+                    .from(sub, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" }, "-=0.3")
+                    .from(jar, { opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.4");
+            } else {
+                panelTl.from(badge, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" })
+                    .from(headline, { y: 40, opacity: 0, duration: 0.6, ease: "power4.out" }, "-=0.2")
+                    .from(sub, { y: 20, opacity: 0, duration: 0.5, ease: "power3.out" }, "-=0.3")
+                    .from(jar, { scale: 0.8, opacity: 0, duration: 0.8, ease: "back.out(1.2)" }, "-=0.4");
+            }
         });
     });
 
