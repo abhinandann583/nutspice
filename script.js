@@ -154,11 +154,11 @@ if (journeySection && journeyTrack) {
 
     // Universal: Continuous jar floating & glow pulses
     panels.forEach(panel => {
-        const jar = panel.querySelector('.panel-jar');
+        const visual = panel.querySelector('.panel-visual');
 
         // Continuous jar floating
-        if (jar) {
-            gsap.to(jar, {
+        if (visual) {
+            gsap.to(visual, {
                 y: -15,
                 duration: 2.5,
                 repeat: -1,
