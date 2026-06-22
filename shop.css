@@ -141,7 +141,7 @@ body { overflow-x: hidden; }
 }
 
 .compare-img-wrapper {
-    height: 180px;
+    height: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
